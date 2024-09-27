@@ -17,7 +17,7 @@ client
     console.error("Error connecting to PostgreSQL database", err);
   });
 
-client.query('SELECT * FROM "Order"', (err, result) => {
+client.query("SELECT * FROM order", (err, result) => {
   if (err) {
     console.error("Error executing query", err);
   } else {
