@@ -16,7 +16,39 @@ const getOrdersById = (req, res) => {
   });
 };
 
+const addOrders = (req, res) => {
+  const {
+    ONO,
+    ID,
+    MESSAGE_DT,
+    ORDER_CONTROL,
+    PID,
+    APID,
+    PREFIX,
+    FIRST_NAME,
+    LAST_NAME,
+  } = req.body;
+
+  pool.query(queries.addStudent, [
+    ONO,
+    ID,
+    MESSAGE_DT,
+    ORDER_CONTROL,
+    PID,
+    APID,
+    PREFIX,
+    FIRST_NAME,
+    LAST_NAME,
+  ]);
+
+  (errors, results) => {
+    if (error) throw error;
+    res.status(201).send("Student Created Successfully");
+  };
+};
+
 module.exports = {
   getOrders,
   getOrdersById,
+  addOrders,
 };
