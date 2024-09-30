@@ -29,22 +29,26 @@ const addOrders = (req, res) => {
     LAST_NAME,
   } = req.body;
 
-  pool.query(queries.addStudent, [
-    ONO,
-    ID,
-    MESSAGE_DT,
-    ORDER_CONTROL,
-    PID,
-    APID,
-    PREFIX,
-    FIRST_NAME,
-    LAST_NAME,
-  ]);
+  console.log(req.body);
 
-  (errors, results) => {
-    if (error) throw error;
-    res.status(201).send("Student Created Successfully");
-  };
+  pool.query(
+    queries.addOrders,
+    [
+      ONO,
+      ID,
+      MESSAGE_DT,
+      ORDER_CONTROL,
+      PID,
+      APID,
+      PREFIX,
+      FIRST_NAME,
+      LAST_NAME,
+    ],
+    (error, results) => {
+      if (error) throw error;
+      res.status(201).send("Student Created Successfully");
+    }
+  );
 };
 
 module.exports = {
