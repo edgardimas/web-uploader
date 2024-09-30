@@ -1,22 +1,22 @@
 const pool = require("../../database");
 const queries = require("./queries");
 
-const getOrders = (req, res) => {
-  pool.query(queries.getOrders, (error, results) => {
+const getOrderHeaders = (req, res) => {
+  pool.query(queries.getOrderHeaders, (error, results) => {
     if (error) throw error;
     res.status(200).json(results.rows);
   });
 };
 
-const getOrdersById = (req, res) => {
+const getOrderHeaderById = (req, res) => {
   const id = parseInt(req.params.id);
-  pool.query(queries.getOrdersById, [id], (error, results) => {
+  pool.query(queries.getOrderHeaderById, [id], (error, results) => {
     if (error) throw error;
     res.status(200).json(results.rows);
   });
 };
 
-const addOrders = (req, res) => {
+const addOrderHeader = (req, res) => {
   const {
     ONO,
     ID,
@@ -29,10 +29,8 @@ const addOrders = (req, res) => {
     LAST_NAME,
   } = req.body;
 
-  console.log(req.body);
-
   pool.query(
-    queries.addOrders,
+    queries.addOrderHeader,
     [
       ONO,
       ID,
@@ -51,8 +49,11 @@ const addOrders = (req, res) => {
   );
 };
 
+const removeOrder = (req, res) => {};
+
 module.exports = {
-  getOrders,
-  getOrdersById,
-  addOrders,
+  getOrderHeaders,
+  getOrderHeaderById,
+  addOrderHeader,
+  removeOrder,
 };
