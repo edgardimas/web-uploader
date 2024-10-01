@@ -97,21 +97,27 @@ const updateOrder = (req, res) => {
     if (noOrderFound) {
       res.send("Order does not exist in database");
     }
-
-    const updatePromises = Object.entries(data).map(([key, value]) => {
-      const columnName = key;
-      const query = `UPDATE lis_order SET ${columnName} = $1 WHERE id = $2`;
-      return pool.query(query, [value, id]);
-    });
-
-    Promise.all(updatePromises)
-      .then(() => {
-        res.status(200).send("Order updated successfully");
-      })
-      .catch((error) => {
+    const data = req.body;
+    const allowedColumns = ["order_control", "site", "pid", "apid"];
+    const filteredEntries = Object.entries(data).filter(([key]) =>
+      allowedColumns.includes(key)
+    );
+    const columns = filteredEntries.map(
+      ([key], index) => `${key} = $${index + 1}`
+    );
+    const values = filteredEntries.map(([, value]) => value);
+    values.push(id);
+    const query = `UPDATE lis_order SET ${columns.join(", ")} WHERE id = $${
+      values.length
+    }`;
+    pool.query(query, values, (error, results) => {
+      if (error) {
         console.error(error);
         res.status(500).send("Error updating order");
-      });
+      } else {
+        res.status(200).send("Order updated successfully");
+      }
+    });
   });
 };
 
