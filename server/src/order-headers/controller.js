@@ -49,6 +49,23 @@ const addOrderHeader = (req, res) => {
   );
 };
 
+const updateOrderHeader = (req, res) => {
+  const id = parseInt(req.params.id);
+  const { LAST_NAME } = req.body;
+
+  pool.query(queries.getOrderHeaderById, [id], (error, results) => {
+    const noOrderHeaderFound = !results.rows.length;
+    if (noOrderHeaderFound) {
+      res.send("Order header does not exist in database");
+    }
+
+    pool.query(queries.updateOrderHeader, [LAST_NAME, id], (error, results) => {
+      if (error) throw error;
+      res.status(200).send("Student updated successfully");
+    });
+  });
+};
+
 const removeOrderHeader = (req, res) => {
   const id = parseInt(req.params.id);
 
@@ -69,4 +86,5 @@ module.exports = {
   getOrderHeaderById,
   addOrderHeader,
   removeOrderHeader,
+  updateOrderHeader,
 };
