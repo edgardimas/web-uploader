@@ -44,16 +44,29 @@ const addOrderHeader = (req, res) => {
     ],
     (error, results) => {
       if (error) throw error;
-      res.status(201).send("Student Created Successfully");
+      res.status(201).send("Order header Created Successfully");
     }
   );
 };
 
-const removeOrder = (req, res) => {};
+const removeOrderHeader = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  pool.query(queries.getOrderHeaderById, [id], (error, results) => {
+    const noOrderHeaderFound = !results.rows.length;
+    if (noOrderHeaderFound) {
+      res.send("OrderHeader does not exist in the database");
+    }
+
+    pool.query(queries.removeOrderHeader, [id], (error, result) => {
+      res.status(200).send("Order header removed successfully.");
+    });
+  });
+};
 
 module.exports = {
   getOrderHeaders,
   getOrderHeaderById,
   addOrderHeader,
-  removeOrder,
+  removeOrderHeader,
 };

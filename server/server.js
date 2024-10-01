@@ -1,5 +1,5 @@
 const express = require("express");
-const ordersRoutes = require("./src/orders/routes");
+const orderHeaderRoutes = require("./src/order-headers/routes");
 const app = express();
 const port = 3000;
 
@@ -11,6 +11,6 @@ app.get("/", (req, res) => {
   res.send("Hello World!!");
 });
 
-app.use("/orders", ordersRoutes);
+app.use("/order-headers", orderHeaderRoutes);
 
 app.listen(port, () => console.log(`app listening on port ${port}`));
