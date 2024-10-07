@@ -1,6 +1,8 @@
 const pool = require("../../database");
 const queries = require("./queries");
 
+var fs = require("fs");
+
 const getOrders = (req, res) => {
   pool.query(queries.getOrders, (error, results) => {
     if (error) throw error;
@@ -47,6 +49,35 @@ const addOrder = (req, res) => {
     order_testid,
     comment,
   } = req.body;
+  function pad2(n) {
+    return n < 10 ? "0" + n : n;
+  }
+
+  var date = new Date();
+
+  const newDate =
+    date.getFullYear().toString() +
+    pad2(date.getMonth() + 1) +
+    pad2(date.getDate()) +
+    pad2(date.getHours()) +
+    pad2(date.getMinutes()) +
+    pad2(date.getSeconds());
+  console.log(newDate);
+
+  const content = `[MSH]
+message_id = O01
+message_dt = ${newDate}
+[OBR]
+order_control = ${order_control};
+`;
+
+  fs.writeFile(`/hcini/queue/HL7_in/O01_${ono}.txt`, content, (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      // file written successfully
+    }
+  });
 
   pool.query(
     queries.addOrder,
