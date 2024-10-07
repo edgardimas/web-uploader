@@ -36,6 +36,7 @@ const addOrder = (req, res) => {
     mobile_phone,
     email,
     ono,
+    lno,
     request_dt,
     source_cd,
     source_nm,
@@ -62,20 +63,38 @@ const addOrder = (req, res) => {
     pad2(date.getHours()) +
     pad2(date.getMinutes()) +
     pad2(date.getSeconds());
-  console.log(newDate);
 
   const content = `[MSH]
-message_id = O01
-message_dt = ${newDate}
+message_id=O01
+message_dt=${newDate}
 [OBR]
-order_control = ${order_control};
+order_control=${order_control}
+site_id=${site}
+pid=${pid}
+apid=${apid}
+pname=${name}
+address=${address1}^^${address2}^
+ptype=${ptype}
+birth_dt=${birth_dt}
+sex=${sex}
+ono=${ono}
+lno=${lno}
+request_dt=${request_dt}
+source=${source_cd}^${source_nm}
+clinician=${clinician_cd}^${clinician_nm}
+room_no=${room_no}
+priority=${priority}
+pstatus=${pstatus}
+comment=${comment}
+visitno=${visitno}
+order_testid=${order_testid}
 `;
 
   fs.writeFile(`/hcini/queue/HL7_in/O01_${ono}.txt`, content, (err) => {
     if (err) {
       console.error(err);
     } else {
-      // file written successfully
+      console.log("fille written successfully.");
     }
   });
 
