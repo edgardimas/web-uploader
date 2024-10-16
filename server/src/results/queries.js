@@ -10,16 +10,12 @@ const getResults = `SELECT
       'status', rd.status
     )
   ) AS tests
-FROM 
-  results r
-LEFT JOIN 
-  result_details rd
-ON 
-  r.ono = rd.ono
-WHERE 
-  r.ono = '68516'  -- You can adjust this condition based on your needs
-GROUP BY 
-  r.name;`;
+FROM results r
+LEFT JOIN result_details rd
+ON r.ono = rd.ono
+WHERE r.ono = '68516'  -- You can adjust this condition based on your needs
+GROUP BY r.name;`;
+
 const getResultById = `SELECT * FROM results WHERE id = $1`;
 
 module.exports = {
