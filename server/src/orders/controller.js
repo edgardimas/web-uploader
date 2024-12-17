@@ -67,6 +67,7 @@ const addOrder = (req, res) => {
   const content = `[MSH]
 message_id=O01
 message_dt=${newDate}
+version=2.9
 [OBR]
 order_control=${order_control}
 site_id=${site}
@@ -79,7 +80,7 @@ birth_dt=${birth_dt}
 sex=${sex}
 ono=${ono}
 lno=${lno}
-request_dt=${request_dt}
+request_dt=${newDate}
 source=${source_cd}^${source_nm}
 clinician=${clinician_cd}^${clinician_nm}
 room_no=${room_no}
