@@ -1,7 +1,7 @@
 const express = require("express");
 const orderRoutes = require("./src/orders/routes");
 const resultRoutes = require("./src/results/routes");
-const checkForR01Files = require("./fileChecker");
+const checkForR01Files = require("./src/checker/fileChecker");
 const app = express();
 const port = 3000;
 
