@@ -1,4 +1,4 @@
-function resultUploader(data) {
+function resHdrUp(data) {
   const parsed = data;
   pool.query(
     queries.addResultHeader,
@@ -47,15 +47,15 @@ function resultUploader(data) {
         file
       );
 
-      // fs.rename(sourcePath, destinationPath, (err) => {
-      //   if (err) {
-      //     console.error(`Error moving file ${file}:`, err.message);
-      //     return;
-      //   }
-      //   console.log(`File ${file} moved successfully!`);
-      // });
+      fs.rename(sourcePath, destinationPath, (err) => {
+        if (err) {
+          console.error(`Error moving file ${file}:`, err.message);
+          return;
+        }
+        console.log(`File ${file} moved successfully!`);
+      });
     }
   );
 }
 
-module.exports = { resultUploader };
+module.exports = { resHdrUp };
