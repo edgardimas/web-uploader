@@ -3,6 +3,7 @@ const path = require("path");
 const parser = require("./parser");
 const pool = require("../../database");
 const queries = require("./queries");
+const obxExtractor = require("./obxExtractor");
 
 const folderPath = path.join("C:/hcini", "queue", "HL7_out");
 
@@ -34,11 +35,11 @@ function checkForR01Files() {
 
           // Parse the file content
           const parsed = parser(data);
-          console.log(`Parsed data for file ${file}:`, parsed);
+          const obx = obxExtractor(parsed);
 
           // Insert into database
           pool.query(
-            queries.addResult,
+            queries.addResultHeader,
             [
               parsed.ono,
               parsed.lno,
@@ -87,13 +88,13 @@ function checkForR01Files() {
                 file
               );
 
-              fs.rename(sourcePath, destinationPath, (err) => {
-                if (err) {
-                  console.error(`Error moving file ${file}:`, err.message);
-                  return;
-                }
-                console.log(`File ${file} moved successfully!`);
-              });
+              // fs.rename(sourcePath, destinationPath, (err) => {
+              //   if (err) {
+              //     console.error(`Error moving file ${file}:`, err.message);
+              //     return;
+              //   }
+              //   console.log(`File ${file} moved successfully!`);
+              // });
             }
           );
         });
