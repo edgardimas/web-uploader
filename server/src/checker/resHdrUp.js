@@ -1,5 +1,7 @@
-function resHdrUp(data) {
-  const parsed = data;
+const pool = require("../../database");
+const queries = require("./queries");
+
+function resHdrUp(parsed, file) {
   pool.query(
     queries.addResultHeader,
     [
@@ -36,26 +38,8 @@ function resHdrUp(data) {
       }
 
       console.log(`Database insert successful for file ${file}`);
-
-      // Move file after successful database insert
-      const sourcePath = filePath;
-      const destinationPath = path.join(
-        "C:/hcini",
-        "queue",
-        "HL7_out",
-        "temp",
-        file
-      );
-
-      fs.rename(sourcePath, destinationPath, (err) => {
-        if (err) {
-          console.error(`Error moving file ${file}:`, err.message);
-          return;
-        }
-        console.log(`File ${file} moved successfully!`);
-      });
     }
   );
 }
 
-module.exports = { resHdrUp };
+module.exports = resHdrUp;

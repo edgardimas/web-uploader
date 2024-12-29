@@ -1,10 +1,10 @@
 const fs = require("fs");
+const iconv = require("iconv-lite");
 const path = require("path");
 const parser = require("./parser");
-const pool = require("../../database");
-const queries = require("./queries");
 const obxExtractor = require("./obxExtractor");
 const resHdrUp = require("./resHdrUp");
+const resDtUp = require("./resDtUp");
 
 const folderPath = path.join("C:/hcini", "queue", "HL7_out");
 
@@ -28,18 +28,37 @@ function checkForR01Files() {
         const filePath = path.join(folderPath, file);
 
         // Read file contents
-        fs.readFile(filePath, "utf8", (err, data) => {
+        fs.readFile(filePath, { encoding: "utf8" }, (err, data) => {
           if (err) {
             console.error(`Error reading file ${file}:`, err.message);
             return;
           }
-
+          const decodedData = iconv.decode(data, "ISO-8859-1");
+          const correctedData = decodedData.replace(/ýL/g, "µL");
           // Parse the file content
-          const parsed = parser(data);
+          const parsed = parser(correctedData);
           const obx = obxExtractor(parsed);
 
           // Insert into database
-          resHdrUp(data);
+          resHdrUp(parsed, file);
+          resDtUp(obx, parsed.ono, file);
+          // Move file after successful database insert
+          const sourcePath = filePath;
+          const destinationPath = path.join(
+            "C:/hcini",
+            "queue",
+            "HL7_out",
+            "temp",
+            file
+          );
+
+          fs.rename(sourcePath, destinationPath, (err) => {
+            if (err) {
+              console.error(`Error moving file ${file}:`, err.message);
+              return;
+            }
+            console.log(`File ${file} moved successfully!`);
+          });
         });
       });
     } else {
