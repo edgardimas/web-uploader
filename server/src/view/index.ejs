@@ -4,10 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
+    <script>
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    </script>
   </head>
   <body>
-    <h1>Hello, World!</h1>
-    <p>Welcome to <%= title %>!</p>
+    <h1>Uploader</h1>
+    <h1>Logs</h1>
+    <ul>
+      <% if (logs && logs.length > 0) { %> <% logs.forEach((log) => { %>
+      <li><%= log %></li>
+      <% }) %> <% } else { %>
+      <li>No logs available</li>
+      <% } %>
+    </ul>
     <p>Current Time: <%= timestamp %></p>
+    <button>History</button>
+    <button>Test Mapping</button>
   </body>
 </html>

@@ -10,9 +10,10 @@ const getResults = (req, res) => {
   });
 };
 
-const getResultById = (req, res) => {
-  const id = parseInt(req.params.id);
-  pool.query(queries.getResultById, [id], (error, results) => {
+const getResultByOno = (req, res) => {
+  const ono = req.params.ono;
+  console.log(ono, "<<<<<<<<<<<");
+  pool.query(queries.getResultByOno, [ono], (error, results) => {
     if (error) throw error;
     res.status(200).json(results.rows);
   });
@@ -20,5 +21,5 @@ const getResultById = (req, res) => {
 
 module.exports = {
   getResults,
-  getResultById,
+  getResultByOno,
 };

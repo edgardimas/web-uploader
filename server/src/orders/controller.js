@@ -1,5 +1,6 @@
 const pool = require("../../database");
 const queries = require("./queries");
+const logger = require("../../logger");
 
 var fs = require("fs");
 
@@ -96,6 +97,7 @@ order_testid=${order_testid}
       console.error(err);
     } else {
       console.log("fille written successfully.");
+      logger.emit("log", `fille written successfully.`);
     }
   });
 
