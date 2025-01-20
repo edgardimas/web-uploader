@@ -1,13 +1,15 @@
 const pool = require("../../database");
 const queries = require("./queries");
 const pino = require("pino");
-const logger = pino();
+const logger = require("../../logger");
 
 var fs = require("fs");
 
 const getOrders = (req, res) => {
+  console.log(req.order_testid);
   pool.query(queries.getOrders, (error, results) => {
     if (error) throw error;
+    logger.info(`Order request with ONO:${req.ono} has been processed`);
     res.status(200).json(results.rows);
   });
 };
@@ -66,6 +68,30 @@ const addOrder = (req, res) => {
     pad2(date.getMinutes()) +
     pad2(date.getSeconds());
 
+  const HISTestsId = req.body.order_testid;
+  const TestId = HISTestsId.split("~");
+  const processedHT = Promise.all(
+    TestId.map(
+      (el) =>
+        new Promise((resolve, reject) => {
+          pool.query(queries.testMapping, [el], (error, result) => {
+            if (error) {
+              return reject(error);
+            }
+            resolve(result);
+          });
+        })
+    )
+  );
+
+  processedHT
+    .then((results) => {
+      console.log("All results:", results[0].rows);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+
   const content = `[MSH]
 message_id=O01
 message_dt=${newDate}
@@ -97,8 +123,8 @@ order_testid=${order_testid}
     if (err) {
       console.error(err);
     } else {
-      console.log("fille written successfully.");
-      logger.emit("log", `fille written successfully.`);
+      console.log("Order request file written successfully.");
+      logger.info("Order request file written successfully.");
     }
   });
 
