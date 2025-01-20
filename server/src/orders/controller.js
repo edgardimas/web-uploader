@@ -70,7 +70,7 @@ const addOrder = (req, res) => {
 
   const HISTestsId = req.body.order_testid;
   const TestId = HISTestsId.split("~");
-  const processedHT = Promise.all(
+  const processHT = Promise.all(
     TestId.map(
       (el) =>
         new Promise((resolve, reject) => {
@@ -83,10 +83,14 @@ const addOrder = (req, res) => {
         })
     )
   );
+  const processedHT = [];
 
-  processedHT
+  processHT
     .then((results) => {
-      console.log("All results:", results[0].rows);
+      array.forEach((el) => {
+        processedHT.push(results[el].rows.lis_code);
+      });
+      console.log(processedHT);
     })
     .catch((error) => {
       console.error("Error:", error);
