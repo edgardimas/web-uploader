@@ -1,6 +1,7 @@
 const pool = require("../../database");
 const queries = require("./queries");
-const logger = require("../../logger");
+const pino = require("pino");
+const logger = pino();
 
 var fs = require("fs");
 

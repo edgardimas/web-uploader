@@ -1,11 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const logger = require("../../logger");
+const pino = require("pino");
+const logger = pino();
 
 let logs = [];
-setInterval(() => {
-  console.log("Current Logs: ", logs);
-}, 1000);
 
 logger.on("log", (message) => {
   logs.push(message);
