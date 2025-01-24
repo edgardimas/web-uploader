@@ -5,14 +5,14 @@ const parser = require("./parser");
 const obxExtractor = require("./obxExtractor");
 const resHdrUp = require("./resHdrUp");
 const resDtUp = require("./resDtUp");
-const logger = require("../../logger");
+const { orderLogger, resultLogger } = require("../helper/logger");
 const folderPath = path.join("C:/hcini", "queue", "HL7_out");
 let currentState = 0;
 
 function checkForR01Files() {
   fs.readdir(folderPath, (err, files) => {
     if (err) {
-      logger.info(`Error reading folder: ${err.message}`);
+      resultLogger.info(`Error reading folder: ${err.message}`);
       return;
     }
     const r01Files = files.filter(
@@ -20,7 +20,7 @@ function checkForR01Files() {
     );
 
     if (r01Files.length > 0) {
-      logger.info(`Found .r01 file(s): ${r01Files}`);
+      resultLogger.info(`Found .r01 file(s): ${r01Files}`);
 
       r01Files.forEach((file) => {
         const filePath = path.join(folderPath, file);
@@ -56,7 +56,7 @@ function checkForR01Files() {
       });
     } else {
       if (currentState == 0) {
-        logger.info("No R01 Found");
+        resultLogger.info("No R01 Found");
         currentState = 1;
       }
     }

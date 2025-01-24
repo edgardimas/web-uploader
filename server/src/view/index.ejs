@@ -3,25 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= title %></title>
+    <title>Combined Logs</title>
     <script>
-      setTimeout(() => {
-        location.reload();
-      }, 1000);
+      async function fetchLogs() {
+        try {
+          const response = await fetch("/view/data");
+          const data = await response.json();
+
+          // Update Order Logs
+          const orderLogContainer = document.getElementById("orderLogs");
+          orderLogContainer.innerHTML = ""; // Clear current logs
+          data.orderLogs.forEach((log) => {
+            const logItem = document.createElement("li");
+            logItem.textContent = `[${log.time}] ${log.msg}`;
+            orderLogContainer.appendChild(logItem);
+          });
+
+          // Update Result Logs
+          const resultLogContainer = document.getElementById("resultLogs");
+          resultLogContainer.innerHTML = ""; // Clear current logs
+          data.resultLogs.forEach((log) => {
+            const logItem = document.createElement("li");
+            logItem.textContent = `[${log.time}] ${log.msg}`;
+            resultLogContainer.appendChild(logItem);
+          });
+        } catch (error) {
+          console.error("Error fetching logs:", error);
+        }
+      }
+
+      // Fetch logs every 2 seconds
+      setInterval(fetchLogs, 2000);
+      window.onload = fetchLogs;
     </script>
   </head>
   <body>
-    <h1>Uploader</h1>
-    <h1>Logs</h1>
-    <ul>
-      <% if (logs && logs.length > 0) { %> <% logs.forEach((log) => { %>
-      <li><%= log %></li>
-      <% }) %> <% } else { %>
-      <li>No logs available</li>
-      <% } %>
-    </ul>
-    <p>Current Time: <%= timestamp %></p>
-    <button>History</button>
-    <button>Test Mapping</button>
+    <h1>Combined Logs</h1>
+
+    <h2>Order Logs (Latest 5)</h2>
+    <ul id="orderLogs"></ul>
+
+    <h2>Result Logs (Latest 5)</h2>
+    <ul id="resultLogs"></ul>
   </body>
 </html>
