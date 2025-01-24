@@ -9,7 +9,10 @@ const createLogger = (logType) => {
   if (!fs.existsSync(logDir)) {
     fs.mkdirSync(logDir, { recursive: true });
   }
-  const logFilePath = path.join(logDir, `${dayjs().format("YYYY-MM-DD")}.log`);
+  const logFilePath = path.join(
+    logDir,
+    `${logType}-${dayjs().format("YYYY-MM-DD")}.log`
+  );
 
   return pino(
     {

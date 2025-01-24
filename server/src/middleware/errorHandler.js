@@ -1,6 +1,7 @@
 const { orderLogger, resultLogger } = require("../helper/logger");
 
 const errorHandler = (err, req, res, next) => {
+  console.log(err);
   switch (err.message) {
     case "nilai kunci ganda melanggar batasan unik « lis_order_pkey »":
       orderLogger.info(err.detail);
@@ -10,6 +11,7 @@ const errorHandler = (err, req, res, next) => {
     default:
       return res.status(500).json({
         message: "Internal server error",
+        detail: err.message,
       });
   }
 };

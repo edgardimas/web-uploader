@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,21 +9,23 @@
     <h1>Log Viewer</h1>
     <h2>Available Logs</h2>
     <ul>
-      <% logFiles.forEach(file => { %>
+      <% logFiles.forEach((file) => { %>
       <li>
         <a href="/view/<%= file %>"><%= file %></a>
       </li>
       <% }) %>
     </ul>
 
-    <% if (logs) { %>
+    <% if (currentFile) { %>
     <h2>Messages in <%= currentFile %></h2>
     <ul>
-      <% logs.forEach(log => { %>
-      <li><%= log.time %><%= log.msg %></li>
-      <% }) %>
+      <% if (logs.length > 0) { %> <% logs.forEach((log) => { %>
+      <li><%= log.time %> - <%= log.msg %></li>
+      <% }) %> <% } else { %>
+      <li>No logs available for this file.</li>
+      <% } %>
     </ul>
-    <% } else { %>
+    <% } else { %>a
     <p>Select a log file to view its messages.</p>
     <% } %>
   </body>

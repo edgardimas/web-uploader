@@ -4,6 +4,8 @@ const path = require("path");
 
 const router = express.Router();
 const logDirPath = path.join(__dirname, "../../logs");
+const ordersCalPath = path.join(logDirPath, "orders");
+const resultsCalPath = path.join(logDirPath, "results");
 
 const readLatestLogs = (logType, callback) => {
   const logDir = path.join(logDirPath, logType);
@@ -43,6 +45,43 @@ const readLatestLogs = (logType, callback) => {
   });
 };
 
+const readLogs = (logtype, callback) => {
+  const Dir = path.join(logDirPath, logtype);
+
+  if (!fs.existsSync(Dir)) {
+    return callback([]);
+  }
+  const files = fs.readdirSync(Dir).filter((file) => file.endsWith(".log"));
+  callback(files);
+};
+
+const readLogFile = (logType, fileName, callback) => {
+  const filePath = path.join(logDirPath, logType, fileName);
+  if (!fs.existsSync(filePath)) {
+    return callback([]);
+  }
+
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    if (err) {
+      return callback([]);
+    }
+
+    const logs = data
+      .split("\n")
+      .filter((line) => line)
+      .map((line) => {
+        try {
+          const parsed = JSON.parse(line);
+          return { time: parsed.time, msg: parsed.msg || "Invalid log entry" };
+        } catch {
+          return { time: "Invalid time", msg: "Invalid log entry" };
+        }
+      });
+
+    callback(logs);
+  });
+};
+
 router.get("/data", (req, res) => {
   readLatestLogs("orders", (orderLogs) => {
     readLatestLogs("results", (resultLogs) => {
@@ -69,18 +108,18 @@ router.get("/:type/realtime", (req, res) => {
 });
 
 router.get("/logviewer", (req, res) => {
-  fs.readdir(logDirPath, (err, files) => {
+  fs.readdir(ordersCalPath, (err, files) => {
     if (err) {
       return res.status(500).send("Error reading log directory.");
     }
     const logFiles = files.filter((file) => file.endsWith(".log"));
-    res.render("logviewer", { logFiles, logs: null });
+    res.render("logviewer", { logFiles, logs: [], currentFile: null });
   });
 });
 
 router.get("/:filename", (req, res) => {
   const filename = req.params.filename;
-  const filePath = path.join(logDirPath, filename);
+  const filePath = path.join(ordersCalPath, filename);
 
   if (!fs.existsSync(filePath)) {
     return res.status(404).send("Log file not found.");
@@ -96,9 +135,10 @@ router.get("/:filename", (req, res) => {
       .filter((line) => line)
       .map((line) => {
         try {
-          return JSON.parse(line);
+          const parsed = JSON.parse(line);
+          return { time: parsed.time, msg: parsed.msg || "Invalid log entry" };
         } catch {
-          return { error: "Invalid log entry", raw: line };
+          return { time: "Invalid time", msg: "Invalid log entry" };
         }
       });
 
@@ -112,5 +152,4 @@ router.get("/:filename", (req, res) => {
     });
   });
 });
-
 module.exports = router;
