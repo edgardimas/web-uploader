@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Logs</title>
+  </head>
+  <body>
+    <h1>Log Viewer</h1>
+    <h2>Available Logs</h2>
+    <ul>
+      <% logFiles.forEach((file) => { %>
+      <li>
+        <a href="/view/<%= file %>"><%= file %></a>
+      </li>
+      <% }) %>
+    </ul>
+
+    <% if (currentFile) { %>
+    <h2>Messages in <%= currentFile %></h2>
+    <ul>
+      <% if (logs.length > 0) { %> <% logs.forEach((log) => { %>
+      <li><%= log.time %> - <%= log.msg %></li>
+      <% }) %> <% } else { %>
+      <li>No logs available for this file.</li>
+      <% } %>
+    </ul>
+    <% } else { %>a
+    <p>Select a log file to view its messages.</p>
+    <% } %>
+  </body>
+</html>

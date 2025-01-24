@@ -107,13 +107,57 @@ router.get("/:type/realtime", (req, res) => {
   });
 });
 
-router.get("/logviewer", (req, res) => {
-  fs.readdir(ordersCalPath, (err, files) => {
+router.get("/orderlog", (req, res) => {
+  fs.readdir(ordersCalPath, (err, orderFiles) => {
     if (err) {
-      return res.status(500).send("Error reading log directory.");
+      return res.status(500).send("Error reading orders log directory.");
     }
-    const logFiles = files.filter((file) => file.endsWith(".log"));
-    res.render("logviewer", { logFiles, logs: [], currentFile: null });
+    const OrderlogFiles = orderFiles.filter((file) => file.endsWith(".log"));
+
+    fs.readdir(resultsCalPath, (err, resultFiles) => {
+      if (err) {
+        return res.status(500).send("Error reading results log directory.");
+      }
+      const ResultlogFiles = resultFiles.filter((file) =>
+        file.endsWith(".log")
+      );
+
+      // Combine both types of logs into one object
+      const logFiles = {
+        orders: OrderlogFiles,
+        results: ResultlogFiles,
+      };
+
+      // Render the view with both types of logs
+      res.render("logviewer", { logFiles, logs: [], currentFile: null });
+    });
+  });
+});
+
+router.get("/resultlog", (req, res) => {
+  fs.readdir(ordersCalPath, (err, orderFiles) => {
+    if (err) {
+      return res.status(500).send("Error reading orders log directory.");
+    }
+    const OrderlogFiles = orderFiles.filter((file) => file.endsWith(".log"));
+
+    fs.readdir(resultsCalPath, (err, resultFiles) => {
+      if (err) {
+        return res.status(500).send("Error reading results log directory.");
+      }
+      const ResultlogFiles = resultFiles.filter((file) =>
+        file.endsWith(".log")
+      );
+
+      // Combine both types of logs into one object
+      const logFiles = {
+        orders: OrderlogFiles,
+        results: ResultlogFiles,
+      };
+
+      // Render the view with both types of logs
+      res.render("logviewer", { logFiles, logs: [], currentFile: null });
+    });
   });
 });
 
@@ -142,7 +186,7 @@ router.get("/:filename", (req, res) => {
         }
       });
 
-    fs.readdir(logDirPath, (err, files) => {
+    fs.readdir(ordersCalPath, (err, files) => {
       if (err) {
         return res.status(500).send("Error reading log directory.");
       }
