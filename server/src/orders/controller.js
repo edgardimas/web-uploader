@@ -22,7 +22,7 @@ const getOrderById = (req, res) => {
   });
 };
 
-const addOrder = async (req, res) => {
+const addOrder = async (req, res, next) => {
   try {
     const {
       message_dt,
@@ -174,8 +174,7 @@ order_testid=${joinedHT}`;
 
     res.status(201).send("Order Created Successfully");
   } catch (error) {
-    console.error("Error in addOrder:", error);
-    res.status(500).send("An error occurred while creating the order.");
+    next(error);
   }
 };
 
