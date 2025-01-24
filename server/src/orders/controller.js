@@ -116,18 +116,6 @@ order_testid=${joinedHT}`;
 
     const filePath = `/hcini/queue/HL7_in/O01_${ono}.txt`;
 
-    // Write HL7 content to file
-    await new Promise((resolve, reject) => {
-      fs.writeFile(filePath, content, (err) => {
-        if (err) {
-          console.error("Error writing HL7 file:", err);
-          return reject(err);
-        }
-        orderLogger.info(`Order request with ono ${ono} has been processed.`);
-        resolve();
-      });
-    });
-
     // Insert order into database
     await new Promise((resolve, reject) => {
       pool.query(
@@ -167,9 +155,21 @@ order_testid=${joinedHT}`;
             console.error("Error inserting order:", error);
             return reject(error);
           }
+          orderLogger.info(`Order request with ono ${ono} has been processed`);
           resolve();
         }
       );
+    });
+
+    // Write HL7 content to file
+    await new Promise((resolve, reject) => {
+      fs.writeFile(filePath, content, (err) => {
+        if (err) {
+          console.error("Error writing HL7 file:", err);
+          return reject(err);
+        }
+        resolve();
+      });
     });
 
     res.status(201).send("Order Created Successfully");
