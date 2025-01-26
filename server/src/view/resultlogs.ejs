@@ -11,10 +11,11 @@
     <ul>
       <% logFiles.forEach((file) => { %>
       <li>
-        <a href="/view/<%= file %>"><%= file %></a>
+        <a href="/view/results/<%= file %>"><%= file %></a>
       </li>
       <% }) %>
     </ul>
+    <a href="/view">Home</a>
 
     <% if (currentFile) { %>
     <h2>Messages in <%= currentFile %></h2>
@@ -25,7 +26,7 @@
       <li>No logs available for this file.</li>
       <% } %>
     </ul>
-    <% } else { %>a
+    <% } else { %>
     <p>Select a log file to view its messages.</p>
     <% } %>
   </body>

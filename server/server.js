@@ -16,16 +16,6 @@ app.use("/results", resultRoutes);
 app.use("/view", viewRoutes);
 app.use(errorHandler);
 
-app.get("/view/:type", (req, res) => {
-  const logType = req.params.type;
-
-  if (!["orders", "results"].includes(logType)) {
-    return res.status(400).send("Invalid log type.");
-  }
-
-  res.render("realtime", { logType });
-});
-
 setInterval(checkForR01Files, 2000);
 
 app.listen(port, () => console.log(`app listening on port ${port}`));

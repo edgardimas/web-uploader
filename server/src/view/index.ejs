@@ -39,14 +39,27 @@
   </head>
   <body>
     <h1>Ed's Uploader</h1>
+    <div>
+      <div style="display: flex; align-items: center">
+        <h2>Order Logs (Latest 5)</h2>
+        <p>|</p>
+        <a href="/view/orderlogs">See order logs based on days</a>
+      </div>
+      <div>
+        <ul id="orderLogs"></ul>
+      </div>
+    </div>
+    <div>
+      <div style="display: flex; align-items: center">
+        <h2>Result Logs (Latest 5)</h2>
+        <p>|</p>
+        <a href="/view/resultlogs">See result logs based on days</a>
+      </div>
+      <div>
+        <ul id="resultLogs"></ul>
+      </div>
+    </div>
 
-    <h2>Order Logs (Latest 5)</h2>
-    <ul id="orderLogs"></ul>
-
-    <h2>Result Logs (Latest 5)</h2>
-    <ul id="resultLogs"></ul>
     <a href="/view/test-mapping">Test Mapping </a>
-    <h1></h1>
-    <a href="/view/logviewer">Log List</a>
   </body>
 </html>
