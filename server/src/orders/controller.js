@@ -1,11 +1,14 @@
 const pool = require("../../database");
 const queries = require("./queries");
 const pino = require("pino");
+const path = require("path");
 const { orderLogger } = require("../helper/logger");
+const logDirPath = path.join(__dirname, "../../logs");
+const ordersDirPath = path.join(logDirPath, "orders");
 
-var fs = require("fs");
+const fs = require("fs");
 
-const getOrders = (req, res) => {
+const getOrders = (req, res, next) => {
   console.log(req.order_testid);
   pool.query(queries.getOrders, (error, results) => {
     if (error) throw error;
@@ -14,7 +17,7 @@ const getOrders = (req, res) => {
   });
 };
 
-const getOrderById = (req, res) => {
+const getOrderByOno = (req, res, next) => {
   const id = parseInt(req.params.id);
   pool.query(queries.getOrderById, [id], (error, results) => {
     if (error) throw error;
@@ -178,7 +181,7 @@ order_testid=${joinedHT}`;
   }
 };
 
-const updateOrder = (req, res) => {
+const updateOrder = (req, res, next) => {
   const id = parseInt(req.params.id);
 
   pool.query(queries.getOrderById, [id], (error, results) => {
@@ -210,7 +213,7 @@ const updateOrder = (req, res) => {
   });
 };
 
-const removeOrder = (req, res) => {
+const removeOrder = (req, res, next) => {
   const id = parseInt(req.params.id);
 
   pool.query(queries.getOrderById, [id], (error, results) => {
@@ -225,10 +228,21 @@ const removeOrder = (req, res) => {
   });
 };
 
+const logOrders = (req, res, next) => {
+  fs.readdir(ordersDirPath, (err, files) => {
+    if (err) {
+      return res.status(500).send("Error reading log directory.");
+    }
+    const logFiles = files.filter((file) => file.endsWith(".log"));
+    res.render("orderlogs", { logFiles, logs: [], currentFile: null });
+  });
+};
+
 module.exports = {
   getOrders,
-  getOrderById,
+  getOrderByOno,
   addOrder,
   removeOrder,
   updateOrder,
+  logOrders,
 };
