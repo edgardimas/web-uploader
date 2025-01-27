@@ -3,9 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Test Mappings</title>
   </head>
   <body>
-    <h1>testing</h1>
+    <h1>Test Mappings</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>HIS_Code</th>
+          <th>LIS_Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach((item) => { %>
+        <tr>
+          <td><%= item.his_code%></td>
+          <td><%= item.lis_code%></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
   </body>
 </html>

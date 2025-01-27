@@ -1,7 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-
+const { getTMData } = require("../testmappings/controller");
 const router = express.Router();
 const logDirPath = path.join(__dirname, "../../logs");
 const ordersDirPath = path.join(logDirPath, "orders");
@@ -148,5 +148,7 @@ router.get("/results/:filename", (req, res) => {
     });
   });
 });
+
+router.get("/testmappings", getTMData);
 
 module.exports = router;

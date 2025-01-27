@@ -15,7 +15,7 @@
           orderLogContainer.innerHTML = ""; // Clear current logs
           data.orderLogs.forEach((log) => {
             const logItem = document.createElement("li");
-            logItem.textContent = `[${log.time}] ${log.msg}`;
+            logItem.textContent = `${log.time} ${log.msg}`;
             orderLogContainer.appendChild(logItem);
           });
 
@@ -24,7 +24,7 @@
           resultLogContainer.innerHTML = ""; // Clear current logs
           data.resultLogs.forEach((log) => {
             const logItem = document.createElement("li");
-            logItem.textContent = `[${log.time}] ${log.msg}`;
+            logItem.textContent = `${log.time} ${log.msg}`;
             resultLogContainer.appendChild(logItem);
           });
         } catch (error) {
