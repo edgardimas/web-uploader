@@ -2,14 +2,14 @@ const pool = require("../../database");
 const queries = require("./queries");
 const pino = require("pino");
 const path = require("path");
-const { orderLogger } = require("../helper/logger");
+const { orderLogger } = require("../helpers/logger");
 const logDirPath = path.join(__dirname, "../../logs");
 const ordersDirPath = path.join(logDirPath, "orders");
 
 const fs = require("fs");
 
 const getOrders = (req, res, next) => {
-  console.log(req.order_testid);
+  W;
   pool.query(queries.getOrders, (error, results) => {
     if (error) throw error;
     logger.info(`Order request with ONO:${req.ono} has been processed`);

@@ -5,7 +5,7 @@ const parser = require("./parser");
 const obxExtractor = require("./obxExtractor");
 const resHdrUp = require("./resHdrUp");
 const resDtUp = require("./resDtUp");
-const { orderLogger, resultLogger } = require("../helper/logger");
+const { orderLogger, resultLogger } = require("../helpers/logger");
 const folderPath = path.join("C:/hcini", "queue", "HL7_out");
 let currentState = 0;
 
