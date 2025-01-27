@@ -39,10 +39,10 @@ function resDtUp(obx, ono, file) {
       ],
       (error) => {
         if (error) {
-          console.error(`Database error for file ${file}:`, error.message);
+          // console.error(`Database error for file ${file}:`, error.message);
           return;
         }
-        console.log(`Database insert successful for file ${file}`);
+        // console.log(`Database insert successful for file ${file}`);
       }
     );
   }

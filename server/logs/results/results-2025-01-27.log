@@ -20,3 +20,33 @@
 {"level":30,"time":"[2025-01-27 07:54:45]","msg":"No R01 Found"}
 {"level":30,"time":"[2025-01-27 07:55:15]","msg":"No R01 Found"}
 {"level":30,"time":"[2025-01-27 07:56:28]","msg":"No R01 Found"}
+{"level":30,"time":"[2025-01-27 07:59:06]","msg":"No R01 Found"}
+{"level":30,"time":"[2025-01-27 08:06:26]","msg":"Found .r01 file(s): 00014757811.R01"}
+{"level":30,"time":"[2025-01-27 08:06:28]","msg":"No R01 Found"}
+{"level":30,"time":"[2025-01-27 08:12:29]","msg":"Found .r01 file(s): 00014757811.R01"}
+{"level":30,"time":"[2025-01-27 08:12:31]","msg":"No R01 Found"}
+{"level":30,"time":"[2025-01-27 08:17:24]","msg":"Error reading folder: The \"cb\" argument must be of type function. Received undefined"}
+{"level":30,"time":"[2025-01-27 08:17:26]","msg":"Error reading folder: The \"cb\" argument must be of type function. Received undefined"}
+{"level":30,"time":"[2025-01-27 08:17:28]","msg":"Error reading folder: The \"cb\" argument must be of type function. Received undefined"}
+{"level":30,"time":"[2025-01-27 08:17:30]","msg":"Error reading folder: The \"cb\" argument must be of type function. Received undefined"}
+{"level":30,"time":"[2025-01-27 08:17:32]","msg":"Error reading folder: The \"cb\" argument must be of type function. Received undefined"}
+{"level":30,"time":"[2025-01-27 08:17:34]","msg":"Error reading folder: The \"cb\" argument must be of type function. Received undefined"}
+{"level":30,"time":"[2025-01-27 08:17:36]","msg":"Error reading folder: The \"cb\" argument must be of type function. Received undefined"}
+{"level":30,"time":"[2025-01-27 08:17:38]","msg":"Error reading folder: The \"cb\" argument must be of type function. Received undefined"}
+{"level":30,"time":"[2025-01-27 08:17:40]","msg":"Error reading folder: The \"cb\" argument must be of type function. Received undefined"}
+{"level":30,"time":"[2025-01-27 08:17:42]","msg":"Error reading folder: The \"cb\" argument must be of type function. Received undefined"}
+{"level":30,"time":"[2025-01-27 08:17:44]","msg":"Error reading folder: The \"cb\" argument must be of type function. Received undefined"}
+{"level":30,"time":"[2025-01-27 08:17:46]","msg":"Error reading folder: The \"cb\" argument must be of type function. Received undefined"}
+{"level":30,"time":"[2025-01-27 08:17:48]","msg":"Error reading folder: The \"cb\" argument must be of type function. Received undefined"}
+{"level":30,"time":"[2025-01-27 08:17:52]","msg":"No R01 Found"}
+{"level":30,"time":"[2025-01-27 08:18:01]","msg":"No R01 Found"}
+{"level":30,"time":"[2025-01-27 08:19:11]","msg":"Found .r01 file(s): 00014755761.R01"}
+{"level":30,"time":"[2025-01-27 08:19:13]","msg":"No R01 Found"}
+{"level":30,"time":"[2025-01-27 08:25:39]","msg":"No R01 Found"}
+{"level":30,"time":"[2025-01-27 08:29:56]","msg":"Found .r01 file(s): 00014755761.R01"}
+{"level":30,"time":"[2025-01-27 08:29:58]","msg":"No R01 Found"}
+{"level":30,"time":"[2025-01-27 08:32:36]","msg":"No R01 Found"}
+{"level":30,"time":"[2025-01-27 08:32:42]","msg":"No R01 Found"}
+{"level":30,"time":"[2025-01-27 08:33:36]","msg":"No R01 Found"}
+{"level":30,"time":"[2025-01-27 08:34:08]","msg":"Found .r01 file(s): 00014755761.R01"}
+{"level":30,"time":"[2025-01-27 08:34:10]","msg":"No R01 Found"}
