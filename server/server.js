@@ -6,7 +6,14 @@ const checkForR01Files = require("./src/checker/fileChecker");
 const errorHandler = require("./src/middleware/errorHandler");
 const app = express();
 const port = 3000;
+const cors = require("cors");
 
+app.use(
+  cors({
+    origin: "*",
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.set("view engine", "ejs");
 app.set("views", "./src/view");
 app.use(express.json());

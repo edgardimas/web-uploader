@@ -1,7 +1,8 @@
 const { orderLogger, resultLogger } = require("../helpers/logger");
 
 const errorHandler = (err, req, res, next) => {
-  console.log(err);
+  console.log(err, "<<<<< errrrrr");
+
   switch (err.message) {
     case "nilai kunci ganda melanggar batasan unik « lis_order_pkey »":
       orderLogger.info(err.detail);

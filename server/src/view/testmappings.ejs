@@ -7,6 +7,7 @@
   </head>
   <body>
     <h1>Test Mappings</h1>
+    <a href="/view">Home</a>
     <table border="1">
       <thead>
         <tr>
@@ -23,5 +24,13 @@
         <% }) %>
       </tbody>
     </table>
+
+    <script>
+      // Store the access_token in localStorage or sessionStorage
+      const accessToken = "<%= accessToken %>";
+      if (accessToken) {
+        localStorage.setItem("access_token", accessToken);
+      }
+    </script>
   </body>
 </html>

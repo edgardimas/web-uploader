@@ -13,7 +13,7 @@
     <div class="container">
       <h2 class="mt-5">Login</h2>
       <!-- Login Form -->
-      <form action="/view/login" method="POST">
+      <form id="loginForm">
         <div class="form-group">
           <label for="username">Username</label>
           <input
@@ -39,6 +39,40 @@
         <button type="submit" class="btn btn-primary">Login</button>
       </form>
     </div>
+
+    <script>
+      // Add an event listener to handle form submission
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault(); // Prevent the default form submission
+
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+
+          try {
+            const response = await fetch("/view/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ username, password }),
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              localStorage.setItem("access_token", data.accessToken); // Save token in local storage
+              window.location.href = "/view"; // Redirect to the home page
+            } else {
+              const error = await response.json();
+              alert(error.message || "Login failed"); // Show error message
+            }
+          } catch (err) {
+            console.error("Error:", err);
+            alert("An error occurred while logging in."); // Catch and display any other errors
+          }
+        });
+    </script>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

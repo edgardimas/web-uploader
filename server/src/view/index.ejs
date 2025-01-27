@@ -5,9 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ed's Uploader</title>
     <script>
+      // Function to check if the user is authenticated
+      function checkAuth() {
+        const token = localStorage.getItem("access_token");
+        return token;
+      }
+
+      // Function to handle Test Mapping link click and send token via fetch
+      async function handleTestMappingClick(event) {
+        event.preventDefault(); // Prevent default link behavior
+        const token = checkAuth();
+        // if (!token) {
+        //   // If no token, redirect to login
+        //   window.location.href = "/login";
+        //   return;
+        // }
+
+        // Send token to the server using fetch
+        try {
+          const response = await fetch("/view/testmappings", {
+            method: "GET", // Send as GET request
+            headers: {
+              access_token: `${token}`, // Send token in the header
+            },
+          });
+          console.log(response.ok);
+          if (response.ok) {
+            // Redirect to the test mappings page if authentication is successful
+            // window.location.href = "/view/testmappings";
+          } else {
+            // If authentication failed, redirect to login page
+            // window.location.href = "/login";
+            // console.log(response);
+          }
+        } catch (error) {
+          console.error("Error with fetch:", error);
+          // window.location.href = "/login"; // Redirect to login if there's an error
+        }
+      }
+
       async function fetchLogs() {
         try {
-          const response = await fetch("/view/data");
+          const token = localStorage.getItem("access_token");
+          if (!token) {
+            // Redirect if token is missing
+            window.location.href = "/login";
+            return;
+          }
+
+          const response = await fetch("/view/data", {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`, // Send token in the header
+            },
+          });
+
           const data = await response.json();
 
           // Update Order Logs
@@ -32,9 +84,10 @@
         }
       }
 
-      // Fetch logs every 2 seconds
-      setInterval(fetchLogs, 2000);
-      window.onload = fetchLogs;
+      // Check authentication on page load
+      window.onload = () => {
+        fetchLogs(); // Fetch logs if authenticated
+      };
     </script>
   </head>
   <body>
@@ -60,6 +113,7 @@
       </div>
     </div>
 
-    <a href="/view/test-mapping">Test Mapping </a>
+    <!-- Test Mapping link with event listener -->
+    <button onclick="handleTestMappingClick(event)">Test Mapping</button>
   </body>
 </html>
