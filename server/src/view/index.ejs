@@ -23,7 +23,7 @@
 
         // Send token to the server using fetch
         try {
-          const response = await fetch("/view/testmappings", {
+          const response = await fetch("/view/authen", {
             method: "GET", // Send as GET request
             headers: {
               access_token: `${token}`, // Send token in the header
@@ -32,15 +32,14 @@
           console.log(response.ok);
           if (response.ok) {
             // Redirect to the test mappings page if authentication is successful
-            // window.location.href = "/view/testmappings";
+            window.location.href = "/view/testmappings";
           } else {
-            // If authentication failed, redirect to login page
-            // window.location.href = "/login";
-            // console.log(response);
+            window.location.href = "/view/login";
+            console.log(response);
           }
         } catch (error) {
           console.error("Error with fetch:", error);
-          // window.location.href = "/login"; // Redirect to login if there's an error
+          window.location.href = "/login"; // Redirect to login if there's an error
         }
       }
 

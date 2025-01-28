@@ -151,7 +151,11 @@ router.get("/results/:filename", (req, res) => {
   });
 });
 
-router.get("/testmappings", authentication, getTMData);
+router.get("/authen", authentication, (req, res) => {
+  res.status(200).send({ message: "Authenticated", user: req.user });
+});
+
+router.get("/testmappings", getTMData);
 
 router.get("/login", (req, res) => {
   res.render("login");
