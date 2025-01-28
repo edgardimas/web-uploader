@@ -2,6 +2,7 @@ const express = require("express");
 const orderRoutes = require("./src/orders/routes");
 const resultRoutes = require("./src/results/routes");
 const viewRoutes = require("./src/view/routes");
+const testMappingRoutes = require("./src/testmappings/router");
 const checkForR01Files = require("./src/checker/fileChecker");
 const errorHandler = require("./src/middleware/errorHandler");
 const app = express();
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/orders", orderRoutes);
 app.use("/results", resultRoutes);
 app.use("/view", viewRoutes);
+app.use("/testmappings", testMappingRoutes);
 app.use(errorHandler);
 
 setInterval(checkForR01Files, 2000);

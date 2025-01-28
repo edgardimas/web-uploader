@@ -83,10 +83,11 @@
         }
       }
 
-      // Check authentication on page load
       window.onload = () => {
-        fetchLogs(); // Fetch logs if authenticated
+        fetchLogs();
       };
+
+      setInterval(fetchLogs, 2000);
     </script>
   </head>
   <body>

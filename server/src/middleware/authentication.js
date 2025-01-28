@@ -14,11 +14,16 @@ const authentication = async (req, res, next) => {
     const targetId = payload.id;
     const foundUser = await findUserById(targetId);
     if (!foundUser) {
-      req.user = {
-        id: foundUser.id,
-        username: foundUser.username,
+      throw {
+        name: "Unauthorized",
+        statusCode: 401,
+        message: "User not found",
       };
     }
+    req.user = {
+      id: foundUser.id,
+      username: foundUser.username,
+    };
     next();
   } catch (err) {
     next(err);

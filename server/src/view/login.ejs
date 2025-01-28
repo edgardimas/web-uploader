@@ -57,6 +57,7 @@
 
             if (response.ok) {
               const data = await response.json();
+              console.log(data, "<<<data");
               localStorage.setItem("access_token", data.accessToken); // Save token in local storage
               window.location.href = "/view"; // Redirect to the home page
             } else {

@@ -23,7 +23,7 @@
             window.location.href = "/view/login";
           }
         } catch (err) {
-          console.error("Error validating token:", error);
+          console.error("Error validating token:", err);
           window.location.href = "/view/login";
         }
       }
@@ -33,24 +33,53 @@
   <body>
     <h1>Test Mappings</h1>
     <a href="/view">Home</a>
-    <a href="/view/tmform">Add new</a>
+    <a href="/view/tmaddform">Add new</a>
+
+    <!-- Search bar -->
+    <label for="searchInput">Search HIS Code:</label>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Enter HIS Code..."
+      oninput="filterTable()"
+    />
+
     <table border="1">
       <thead>
         <tr>
           <th>HIS_Code</th>
           <th>LIS_Code</th>
           <th>Updated By</th>
+          <th>Action</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tableBody">
         <% data.forEach((item) => { %>
         <tr>
-          <td><%= item.his_code%></td>
-          <td><%= item.lis_code%></td>
-          <td><%= item.updated_by%></td>
+          <td><%= item.his_code %></td>
+          <td><%= item.lis_code %></td>
+          <td><%= item.updated_by %></td>
+          <td><button>Edit</button></td>
         </tr>
         <% }) %>
       </tbody>
     </table>
+
+    <script>
+      function filterTable() {
+        const input = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const rows = document.querySelectorAll("#tableBody tr");
+
+        rows.forEach((row) => {
+          const hisCodeCell = row.querySelector("td:first-child");
+          if (hisCodeCell) {
+            const hisCodeText = hisCodeCell.textContent.toLowerCase();
+            row.style.display = hisCodeText.includes(input) ? "" : "none";
+          }
+        });
+      }
+    </script>
   </body>
 </html>

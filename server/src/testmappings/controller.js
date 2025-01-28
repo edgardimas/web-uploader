@@ -13,8 +13,10 @@ const getTMData = async (req, res, next) => {
 };
 
 const addTMData = async (req, res, next) => {
+  console.log(req.user, "<<<<<< requeser");
   try {
-    const { his_code, lis_code, updated_by } = req.body;
+    const { his_code, lis_code } = req.body;
+    const updated_by = req.user.username;
     if (!his_code || !lis_code || !updated_by) {
       return res.status(400).send("All fields are required.");
     }
