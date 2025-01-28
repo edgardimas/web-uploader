@@ -161,6 +161,14 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
+router.get("/tmaddform", (req, res) => {
+  res.render("tmaddform");
+});
+
+router.get("/tmeditform", (req, res) => {
+  res.render("tmeditform");
+});
+
 router.post("/login", login);
 
 module.exports = router;

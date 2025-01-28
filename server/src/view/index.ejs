@@ -15,11 +15,11 @@
       async function handleTestMappingClick(event) {
         event.preventDefault(); // Prevent default link behavior
         const token = checkAuth();
-        // if (!token) {
-        //   // If no token, redirect to login
-        //   window.location.href = "/login";
-        //   return;
-        // }
+        if (!token) {
+          // If no token, redirect to login
+          window.location.href = "/login";
+          return;
+        }
 
         // Send token to the server using fetch
         try {

@@ -4,15 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test Mappings</title>
+    <script>
+      async function checkAuth() {
+        const token = localStorage.getItem("access_token");
+        if (!token) {
+          window.location.href = "/view/login";
+          return;
+        }
+
+        try {
+          const response = await fetch("/view/authen", {
+            method: "GET",
+            headers: {
+              access_token: token,
+            },
+          });
+          if (!response.ok) {
+            window.location.href = "/view/login";
+          }
+        } catch (err) {
+          console.error("Error validating token:", error);
+          window.location.href = "/view/login";
+        }
+      }
+      window.onload = checkAuth;
+    </script>
   </head>
   <body>
     <h1>Test Mappings</h1>
     <a href="/view">Home</a>
+    <a href="/view/tmform">Add new</a>
     <table border="1">
       <thead>
         <tr>
           <th>HIS_Code</th>
           <th>LIS_Code</th>
+          <th>Updated By</th>
         </tr>
       </thead>
       <tbody>
@@ -20,17 +47,10 @@
         <tr>
           <td><%= item.his_code%></td>
           <td><%= item.lis_code%></td>
+          <td><%= item.updated_by%></td>
         </tr>
         <% }) %>
       </tbody>
     </table>
-
-    <script>
-      // Store the access_token in localStorage or sessionStorage
-      const accessToken = "<%= accessToken %>";
-      if (accessToken) {
-        localStorage.setItem("access_token", accessToken);
-      }
-    </script>
   </body>
 </html>
