@@ -19,6 +19,7 @@ function resDtUp(obx, ono, file) {
       department: values[11],
       method: values[13],
     };
+    console.log(details, "<<<<<<<<");
     pool.query(
       queries.addResultDetail,
       [

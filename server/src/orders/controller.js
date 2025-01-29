@@ -9,7 +9,6 @@ const ordersDirPath = path.join(logDirPath, "orders");
 const fs = require("fs");
 
 const getOrders = (req, res, next) => {
-  W;
   pool.query(queries.getOrders, (error, results) => {
     if (error) throw error;
     logger.info(`Order request with ONO:${req.ono} has been processed`);
@@ -181,36 +180,71 @@ order_testid=${joinedHT}`;
   }
 };
 
-const updateOrder = (req, res, next) => {
-  const id = parseInt(req.params.id);
-
-  pool.query(queries.getOrderById, [id], (error, results) => {
-    const noOrderFound = !results.rows.length;
-    if (noOrderFound) {
-      res.send("Order does not exist in database");
+const updateOrder = async (req, res, next) => {
+  try {
+    const ono = req.params.ono;
+    const existingOrder = await pool.query(queries.getOrderById, [ono]);
+    if (!existingOrder.rows.length) {
+      return res.status(404).send("Order does not exist in database");
     }
     const data = req.body;
-    const allowedColumns = ["order_control", "site", "pid", "apid"];
+    const allowedColumns = [
+      "order_control",
+      "site",
+      "pid",
+      "apid",
+      "name",
+      "address1",
+      "address2",
+      "address3",
+      "address4",
+      "ptype",
+      "birth_dt",
+      "sex",
+      "mobile_phone",
+      "email",
+      "lno",
+      "request_dt",
+      "source_cd",
+      "source_nm",
+      "room_no",
+      "clinician_cd",
+      "clinician_nm",
+      "priority",
+      "diagnose",
+      "pstatus",
+      "visitno",
+      "order_testid",
+      "comment",
+    ];
+
+    // Filter valid fields
     const filteredEntries = Object.entries(data).filter(([key]) =>
       allowedColumns.includes(key)
     );
+    if (filteredEntries.length === 0) {
+      return res.status(400).send("No valid fields provided for update");
+    }
+    // Create dynamic SQL query
     const columns = filteredEntries.map(
       ([key], index) => `${key} = $${index + 1}`
     );
     const values = filteredEntries.map(([, value]) => value);
-    values.push(id);
-    const query = `UPDATE lis_order SET ${columns.join(", ")} WHERE id = $${
+    values.push(ono);
+
+    const query = `UPDATE lis_order SET ${columns.join(", ")} WHERE ono = $${
       values.length
     }`;
-    pool.query(query, values, (error, results) => {
-      if (error) {
-        console.error(error);
-        res.status(500).send("Error updating order");
-      } else {
-        res.status(200).send("Order updated successfully");
-      }
+
+    // Execute update query
+    const result = await pool.query(query, values);
+    res.status(200).json({
+      message: "Order updated successfully",
+      updatedOrder: result.rows[0],
     });
-  });
+  } catch (err) {
+    next(err);
+  }
 };
 
 const removeOrder = (req, res, next) => {

@@ -27,6 +27,12 @@
           window.location.href = "/view/login";
         }
       }
+
+      function editButtonHandler(event, his_code, lis_code) {
+        event.preventDefault();
+        window.location.href = `/view/tmeditform?his_code=${his_code}&lis_code=${lis_code}`;
+      }
+
       window.onload = checkAuth;
     </script>
   </head>
@@ -59,7 +65,13 @@
           <td><%= item.his_code %></td>
           <td><%= item.lis_code %></td>
           <td><%= item.updated_by %></td>
-          <td><button>Edit</button></td>
+          <td>
+            <button
+              onclick="editButtonHandler(event, '<%=item.his_code%>', '<%= item.lis_code%>' )"
+            >
+              Edit
+            </button>
+          </td>
         </tr>
         <% }) %>
       </tbody>

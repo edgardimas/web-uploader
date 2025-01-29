@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Test Mapping</title>
     <script>
+      // This function runs when the page loads
+      window.onload = function () {
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const hisCode = urlParams.get("his_code"); // Get his_code from URL
+        const lisCode = urlParams.get("lis_code"); // Get lis_code from URL
+
+        // If both his_code and lis_code exist in the URL, pre-fill the form fields
+        if (hisCode && lisCode) {
+          document.getElementById("his-code").value = hisCode;
+          document.getElementById("lis-code").value = lisCode;
+        }
+      };
+
       async function handleEditFormSubmit(event) {
         event.preventDefault();
         const accessToken = localStorage.getItem("access_token");
@@ -16,7 +30,7 @@
         const lisCode = document.getElementById("lis-code").value;
 
         try {
-          const response = await fetch("/api/edit-mapping", {
+          const response = await fetch("/testmappings/${hisCode}", {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",

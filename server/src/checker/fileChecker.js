@@ -6,6 +6,7 @@ const obxExtractor = require("./obxExtractor");
 const resHdrUp = require("./resHdrUp");
 const resDtUp = require("./resDtUp");
 const { orderLogger, resultLogger } = require("../helpers/logger");
+const obxMapper = require("./obxMapper");
 const folderPath = path.join("C:/hcini", "queue", "HL7_out");
 let currentState = 0;
 
@@ -39,10 +40,10 @@ async function checkForR01Files() {
           // Parse and extract necessary data
           const parsed = parser(correctedData);
           const obx = obxExtractor(parsed);
-
+          const mappedObx = await obxMapper(obx);
           // Update the records
           await resHdrUp(parsed, file);
-          await resDtUp(obx, parsed.ono, file);
+          await resDtUp(mappedObx, parsed.ono, file);
 
           // Move the file to the new destination
           const destinationPath = path.join(
