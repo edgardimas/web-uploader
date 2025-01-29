@@ -5,7 +5,6 @@ const path = require("path");
 const { orderLogger } = require("../helpers/logger");
 const logDirPath = path.join(__dirname, "../../logs");
 const ordersDirPath = path.join(logDirPath, "orders");
-
 const fs = require("fs");
 
 const getOrders = (req, res, next) => {
@@ -187,6 +186,7 @@ const updateOrder = async (req, res, next) => {
     if (!existingOrder.rows.length) {
       return res.status(404).send("Order does not exist in database");
     }
+
     const data = req.body;
     const allowedColumns = [
       "order_control",
@@ -218,14 +218,14 @@ const updateOrder = async (req, res, next) => {
       "comment",
     ];
 
-    // Filter valid fields
     const filteredEntries = Object.entries(data).filter(([key]) =>
       allowedColumns.includes(key)
     );
+
     if (filteredEntries.length === 0) {
       return res.status(400).send("No valid fields provided for update");
     }
-    // Create dynamic SQL query
+
     const columns = filteredEntries.map(
       ([key], index) => `${key} = $${index + 1}`
     );
@@ -234,19 +234,99 @@ const updateOrder = async (req, res, next) => {
 
     const query = `UPDATE lis_order SET ${columns.join(", ")} WHERE ono = $${
       values.length
-    }`;
+    } RETURNING *`;
 
-    // Execute update query
     const result = await pool.query(query, values);
+    const updatedOrder = result.rows[0];
+
+    const {
+      site = "",
+      pid = "",
+      apid = "",
+      name = "",
+      address1 = "",
+      address2 = "",
+      ptype = "",
+      birth_dt = "",
+      sex = "",
+      lno = "",
+      source_cd = "",
+      source_nm = "",
+      clinician_cd = "",
+      clinician_nm = "",
+      room_no = "",
+      priority = "",
+      pstatus = "",
+      comment = "",
+      visitno = "",
+      order_testid = "",
+    } = updatedOrder;
+
+    const TestId = order_testid.split("~");
+
+    // Process Test IDs and map to lis_codes
+    const processedHT = await Promise.all(
+      TestId.map(
+        (el) =>
+          new Promise((resolve, reject) => {
+            pool.query(queries.testMapping, [el], (error, result) => {
+              if (error) {
+                return reject(error);
+              }
+              resolve(result.rows[0].lis_code);
+            });
+          })
+      )
+    );
+
+    const joinedHT = processedHT.join("~");
+
+    const newDate = new Date()
+      .toISOString()
+      .replace(/[-:.TZ]/g, "")
+      .slice(0, 14);
+    const filePath = `/hcini/queue/HL7_in/O01_${ono}.txt`;
+
+    const content = `[MSH]
+message_id=O01
+message_dt=${newDate}
+version=2.9
+[OBR]
+order_control=RP
+site_id=${site}
+pid=${pid}
+apid=${apid}
+pname=${name}
+address=${address1}^^${address2}
+ptype=${ptype}
+birth_dt=${birth_dt}
+sex=${sex}
+ono=${ono}
+lno=${lno}
+request_dt=${newDate}
+source=${source_cd}^${source_nm}
+clinician=${clinician_cd}^${clinician_nm}
+room_no=${room_no}
+priority=${priority}
+pstatus=${pstatus}
+comment=${comment}
+visitno=${visitno}
+order_testid=${joinedHT}`;
+
+    fs.writeFile(filePath, content, (err) => {
+      if (err) {
+        console.error("Error writing file:", err);
+        return res.status(500).send("Error saving HL7 file");
+      }
+    });
+
     res.status(200).json({
       message: "Order updated successfully",
-      updatedOrder: result.rows[0],
     });
   } catch (err) {
     next(err);
   }
 };
-
 const removeOrder = (req, res, next) => {
   const id = parseInt(req.params.id);
 
