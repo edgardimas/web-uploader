@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
   </head>
   <body>
+    <%- include('partials/navbar') %>
     <div class="container">
       <h2 class="mt-5">Login</h2>
       <!-- Login Form -->
@@ -57,9 +59,8 @@
 
             if (response.ok) {
               const data = await response.json();
-              console.log(data, "<<<data");
               localStorage.setItem("access_token", data.accessToken); // Save token in local storage
-              window.location.href = "/view"; // Redirect to the home page
+              window.location.href = "/view/testmappings"; // Redirect to the home page
             } else {
               const error = await response.json();
               alert(error.message || "Login failed"); // Show error message

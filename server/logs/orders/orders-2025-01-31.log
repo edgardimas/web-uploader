@@ -1,0 +1,36 @@
+{"level":30,"time":"[2025-01-31 08:34:48]","msg":"Order request with ono yahut4 has been processed"}
+{"level":30,"time":"[2025-01-31 08:39:21]","msg":"Order request with ono yahut5 has been processed"}
+{"level":50,"time":"[2025-01-31 08:39:21]","msg":"Error inserting order with ono: yahut5"}
+{"level":30,"time":"[2025-01-31 08:39:21]","msg":"Kunci « (ono)=(yahut5) » sudah ada."}
+{"level":30,"time":"[2025-01-31 08:39:45]","msg":"Order request with ono yahut10 has been processed"}
+{"level":30,"time":"[2025-01-31 08:43:09]","msg":"Order request with ono yahut11 has been processed"}
+{"level":50,"time":"[2025-01-31 08:43:10]","msg":"Error inserting order with ono: yahut11"}
+{"level":30,"time":"[2025-01-31 08:43:10]","msg":"Kunci « (ono)=(yahut11) » sudah ada."}
+{"level":30,"time":"[2025-01-31 08:43:21]","msg":"Order request with ono yahut14 has been processed"}
+{"level":30,"time":"[2025-01-31 08:43:42]","msg":"Order request with ono yahut20 has been processed"}
+{"level":30,"time":"[2025-01-31 08:55:16]","msg":"HL7 file has been created: O01_yahut20.txt"}
+{"level":50,"time":"[2025-01-31 08:55:16]","msg":"Error inserting order with ono: yahut20"}
+{"level":30,"time":"[2025-01-31 08:55:16]","msg":"Kunci « (ono)=(yahut20) » sudah ada."}
+{"level":30,"time":"[2025-01-31 08:55:25]","msg":"HL7 file has been created: O01_yahut901.txt"}
+{"level":30,"time":"[2025-01-31 08:55:25]","msg":"Order request with ono yahut901 has been inserted into uploader database"}
+{"level":30,"time":"[2025-01-31 08:56:20]","msg":"order with ono: yahut901 has been edited"}
+{"level":30,"time":"[2025-01-31 09:42:41]","msg":"HL7 file has been created: O01_yahut777.txt"}
+{"level":30,"time":"[2025-01-31 09:42:41]","msg":"Order request with ono yahut777 has been inserted into uploader database"}
+{"level":30,"time":"[2025-01-31 09:44:04]","msg":"order with ono: yahut777 has been deleted"}
+{"level":30,"time":"[2025-01-31 10:05:20]","msg":"HL7 file has been created: O01_yahut129038.txt"}
+{"level":30,"time":"[2025-01-31 10:05:20]","msg":"Order request with ono yahut129038 has been inserted into uploader database"}
+{"level":30,"time":"[2025-01-31 10:28:12]","msg":"HL7 file has been created: O01_yahutocep.txt"}
+{"level":30,"time":"[2025-01-31 10:28:12]","msg":"Order request with ono yahutocep has been inserted into uploader database"}
+{"level":30,"time":"[2025-01-31 10:28:20]","msg":"HL7 file has been created: O01_yahutocep.txt"}
+{"level":50,"time":"[2025-01-31 10:28:20]","msg":"Error inserting order with ono: yahutocep"}
+{"level":30,"time":"[2025-01-31 10:28:20]","msg":"Kunci « (ono)=(yahutocep) » sudah ada."}
+{"level":30,"time":"[2025-01-31 10:31:31]","msg":"order with ono: yahutocep has been edited"}
+{"level":30,"time":"[2025-01-31 10:33:00]","msg":"order with ono: yahutocep has been deleted"}
+{"level":30,"time":"[2025-01-31 10:51:45]","msg":"HL7 file has been created: O01_yahutahu.txt"}
+{"level":30,"time":"[2025-01-31 10:51:45]","msg":"Order request with ono yahutahu has been inserted into uploader database"}
+{"level":30,"time":"[2025-01-31 10:52:14]","msg":"order with ono: yahutahu has been edited"}
+{"level":30,"time":"[2025-01-31 10:58:37]","msg":"HL7 file has been created: O01_yahutahu.txt"}
+{"level":50,"time":"[2025-01-31 10:58:37]","msg":"Error inserting order with ono: yahutahu"}
+{"level":30,"time":"[2025-01-31 10:58:37]","msg":"Kunci « (ono)=(yahutahu) » sudah ada."}
+{"level":30,"time":"[2025-01-31 10:58:45]","msg":"HL7 file has been created: O01_yahutahu91823.txt"}
+{"level":30,"time":"[2025-01-31 10:58:45]","msg":"Order request with ono yahutahu91823 has been inserted into uploader database"}

@@ -4,116 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ed's Uploader</title>
-    <script>
-      // Function to check if the user is authenticated
-      function checkAuth() {
-        const token = localStorage.getItem("access_token");
-        return token;
-      }
-
-      // Function to handle Test Mapping link click and send token via fetch
-      async function handleTestMappingClick(event) {
-        event.preventDefault(); // Prevent default link behavior
-        const token = checkAuth();
-        if (!token) {
-          // If no token, redirect to login
-          window.location.href = "/login";
-          return;
-        }
-
-        // Send token to the server using fetch
-        try {
-          const response = await fetch("/view/authen", {
-            method: "GET", // Send as GET request
-            headers: {
-              access_token: `${token}`, // Send token in the header
-            },
-          });
-          console.log(response.ok);
-          if (response.ok) {
-            // Redirect to the test mappings page if authentication is successful
-            window.location.href = "/view/testmappings";
-          } else {
-            window.location.href = "/view/login";
-            console.log(response);
-          }
-        } catch (error) {
-          console.error("Error with fetch:", error);
-          window.location.href = "/login"; // Redirect to login if there's an error
-        }
-      }
-
-      async function fetchLogs() {
-        try {
-          const token = localStorage.getItem("access_token");
-          if (!token) {
-            // Redirect if token is missing
-            window.location.href = "/login";
-            return;
-          }
-
-          const response = await fetch("/view/data", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`, // Send token in the header
-            },
-          });
-
-          const data = await response.json();
-
-          // Update Order Logs
-          const orderLogContainer = document.getElementById("orderLogs");
-          orderLogContainer.innerHTML = ""; // Clear current logs
-          data.orderLogs.forEach((log) => {
-            const logItem = document.createElement("li");
-            logItem.textContent = `${log.time} ${log.msg}`;
-            orderLogContainer.appendChild(logItem);
-          });
-
-          // Update Result Logs
-          const resultLogContainer = document.getElementById("resultLogs");
-          resultLogContainer.innerHTML = ""; // Clear current logs
-          data.resultLogs.forEach((log) => {
-            const logItem = document.createElement("li");
-            logItem.textContent = `${log.time} ${log.msg}`;
-            resultLogContainer.appendChild(logItem);
-          });
-        } catch (error) {
-          console.error("Error fetching logs:", error);
-        }
-      }
-
-      window.onload = () => {
-        fetchLogs();
-      };
-
-      setInterval(fetchLogs, 2000);
-    </script>
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <script src="/scripts/index.js"></script>
   </head>
   <body>
-    <h1>Ed's Uploader</h1>
+    <%- include('partials/navbar') %>
+    <h1>Main Page</h1>
+
     <div>
       <div style="display: flex; align-items: center">
-        <h2>Order Logs (Latest 5)</h2>
-        <p>|</p>
-        <a href="/view/orderlogs">See order logs based on days</a>
+        <h2>Recent Order Logs</h2>
       </div>
-      <div>
-        <ul id="orderLogs"></ul>
-      </div>
-    </div>
-    <div>
-      <div style="display: flex; align-items: center">
-        <h2>Result Logs (Latest 5)</h2>
-        <p>|</p>
-        <a href="/view/resultlogs">See result logs based on days</a>
-      </div>
-      <div>
-        <ul id="resultLogs"></ul>
-      </div>
+      <ul id="orderLogs"></ul>
     </div>
 
-    <!-- Test Mapping link with event listener -->
-    <button onclick="handleTestMappingClick(event)">Test Mapping</button>
+    <div>
+      <div style="display: flex; align-items: center">
+        <h2>Recent Result Logs</h2>
+      </div>
+      <ul id="resultLogs"></ul>
+    </div>
+
+    <!-- <button onclick="handleTestMappingClick(event)">Test Mapping</button> -->
   </body>
 </html>

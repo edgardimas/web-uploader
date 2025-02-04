@@ -4,9 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>View Logs</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
   </head>
   <body>
-    <h1>Log Viewer</h1>
+    <%- include('partials/navbar') %>
+    <h1>Order Logs Viewer</h1>
     <h2>Available Logs</h2>
     <ul>
       <% logFiles.forEach((file) => { %>
@@ -15,7 +17,6 @@
       </li>
       <% }) %>
     </ul>
-    <a href="/view">Home</a>
 
     <% if (currentFile) { %>
     <h2>Messages in <%= currentFile %></h2>

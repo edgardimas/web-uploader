@@ -7,20 +7,24 @@ const logDirPath = path.join(__dirname, "../../logs");
 const ordersDirPath = path.join(logDirPath, "orders");
 const fs = require("fs");
 
-const getOrders = (req, res, next) => {
-  pool.query(queries.getOrders, (error, results) => {
-    if (error) throw error;
-    logger.info(`Order request with ONO:${req.ono} has been processed`);
-    res.status(200).json(results.rows);
-  });
+const getOrders = async (req, res, next) => {
+  try {
+    const results = await pool.query(queries.getOrders);
+    const rows = results.rows;
+    res.render("onotracer", { data: rows });
+  } catch (err) {
+    next(err);
+  }
 };
 
-const getOrderByOno = (req, res, next) => {
-  const id = parseInt(req.params.id);
-  pool.query(queries.getOrderById, [id], (error, results) => {
-    if (error) throw error;
+const getOrderByOno = async (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id);
+    const results = await pool.query(queries.getOrderById, [id]);
     res.status(200).json(results.rows);
-  });
+  } catch (err) {
+    next(err);
+  }
 };
 
 const addOrder = async (req, res, next) => {
@@ -57,6 +61,8 @@ const addOrder = async (req, res, next) => {
       comment,
     } = req.body;
 
+    console.log(req.body, "<<<<<<");
+
     function pad2(n) {
       return n < 10 ? "0" + n : n;
     }
@@ -74,15 +80,19 @@ const addOrder = async (req, res, next) => {
 
     // Process Test IDs and map to lis_codes
     const processedHT = await Promise.all(
-      TestId.map(
-        (el) =>
-          new Promise((resolve, reject) => {
-            pool.query(queries.testMapping, [el], (error, result) => {
-              if (error) {
-                return reject(error);
-              }
-              resolve(result.rows[0].lis_code);
-            });
+      TestId.map((el) =>
+        pool
+          .query(queries.testMapping, [el])
+          .then((result) => {
+            if (result.rows.length === 0) {
+              orderLogger.error(`No mapping match for ${el}`);
+              return null; // Explicitly return null to avoid hanging
+            }
+            return result.rows[0].lis_code;
+          })
+          .catch((error) => {
+            orderLogger.error(`Query failed for ${el}: ${error.message}`);
+            return null; // Prevent breaking Promise.all
           })
       )
     );
@@ -116,6 +126,7 @@ visitno=${visitno}
 order_testid=${joinedHT}`;
 
     const filePath = `/hcini/queue/HL7_in/O01_${ono}.txt`;
+    orderLogger.info(`HL7 file has been created: O01_${ono}.txt`);
 
     // Insert order into database
     await new Promise((resolve, reject) => {
@@ -153,16 +164,17 @@ order_testid=${joinedHT}`;
         ],
         (error) => {
           if (error) {
-            console.error("Error inserting order:", error);
+            orderLogger.error(`Error inserting order with ono: ${ono}`);
             return reject(error);
           }
-          orderLogger.info(`Order request with ono ${ono} has been processed`);
+          orderLogger.info(
+            `Order request with ono ${ono} has been inserted into uploader database`
+          );
           resolve();
         }
       );
     });
 
-    // Write HL7 content to file
     await new Promise((resolve, reject) => {
       fs.writeFile(filePath, content, (err) => {
         if (err) {
@@ -320,6 +332,8 @@ order_testid=${joinedHT}`;
       }
     });
 
+    orderLogger.info(`order with ono: ${ono} has been edited`);
+
     res.status(200).json({
       message: "Order updated successfully",
     });
@@ -327,19 +341,75 @@ order_testid=${joinedHT}`;
     next(err);
   }
 };
-const removeOrder = (req, res, next) => {
-  const id = parseInt(req.params.id);
 
-  pool.query(queries.getOrderById, [id], (error, results) => {
-    const noOrderFound = !results.rows.length;
-    if (noOrderFound) {
-      res.send("Order does not exist in the database");
+const removeOrder = async (req, res, next) => {
+  try {
+    const ono = req.params.ono;
+
+    // Check if order exists
+    console.log(ono);
+    const existingOrder = await pool.query(queries.getOrderById, [ono]);
+    if (!existingOrder.rows.length) {
+      return res.status(404).send("Order does not exist in the database");
     }
 
-    pool.query(queries.removeOrder, [id], (error, result) => {
-      res.status(200).send("Order removed successfully.");
+    // Extract order details before deleting
+    const order = existingOrder.rows[0];
+
+    // Set fixed order_control to "CA"
+    const order_control = "CA";
+
+    // Delete order from the database
+    await pool.query(queries.removeOrder, [ono]);
+
+    // Get current timestamp in HL7 format (YYYYMMDDHHMMSS)
+    const newDate = new Date()
+      .toISOString()
+      .replace(/[-:.TZ]/g, "")
+      .slice(0, 14);
+
+    // Generate .txt file content with "CA" adjustment
+    const filePath = `/hcini/queue/HL7_in/O01_${ono}.txt`;
+    const content = `[MSH]
+message_id=O01
+message_dt=${newDate}
+version=2.9
+[OBR]
+order_control=${order_control}
+site_id=${order.site || ""}
+pid=${order.pid || ""}
+apid=${order.apid || ""}
+pname=${order.name || ""}
+address=${order.address1 || ""}^^${order.address2 || ""}^
+ptype=${order.ptype || ""}
+birth_dt=${order.birth_dt || ""}
+sex=${order.sex || ""}
+ono=${ono}
+lno=${order.lno || ""}
+request_dt=${newDate}
+source=${order.source_cd || ""}^${order.source_nm || ""}
+clinician=${order.clinician_cd || ""}^${order.clinician_nm || ""}
+room_no=${order.room_no || ""}
+priority=${order.priority || ""}
+pstatus=${order.pstatus || ""}
+comment=${order.comment || ""}
+visitno=${order.visitno || ""}
+order_testid=${""}`;
+
+    // Write .txt file
+    fs.writeFile(filePath, content, (err) => {
+      if (err) {
+        console.error("Error writing file:", err);
+      } else {
+        console.log(`Deletion log saved: ${filePath}`);
+        orderLogger.info(`order with ono: ${ono} has been deleted`);
+      }
     });
-  });
+
+    res.status(200).send("Order removed successfully.");
+  } catch (err) {
+    next(err);
+  }
 };
 
 const logOrders = (req, res, next) => {

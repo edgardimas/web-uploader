@@ -4,94 +4,50 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test Mappings</title>
-    <script>
-      async function checkAuth() {
-        const token = localStorage.getItem("access_token");
-        if (!token) {
-          window.location.href = "/view/login";
-          return;
-        }
-
-        try {
-          const response = await fetch("/view/authen", {
-            method: "GET",
-            headers: {
-              access_token: token,
-            },
-          });
-          if (!response.ok) {
-            window.location.href = "/view/login";
-          }
-        } catch (err) {
-          console.error("Error validating token:", err);
-          window.location.href = "/view/login";
-        }
-      }
-
-      function editButtonHandler(event, his_code, lis_code) {
-        event.preventDefault();
-        window.location.href = `/view/tmeditform?his_code=${his_code}&lis_code=${lis_code}`;
-      }
-
-      window.onload = checkAuth;
-    </script>
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <script src="/scripts/test-mappings.js"></script>
   </head>
   <body>
+    <%- include('partials/navbar') %>
     <h1>Test Mappings</h1>
-    <a href="/view">Home</a>
-    <a href="/view/tmaddform">Add new</a>
+    <div class="test-mappings">
+      <a href="/view/tmaddform">Add new</a>
+      <label for="searchInput">Search HIS/LIS Code:</label>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="e.g: HCT"
+        oninput="filterTableHIS()"
+      />
 
-    <!-- Search bar -->
-    <label for="searchInput">Search HIS Code:</label>
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Enter HIS Code..."
-      oninput="filterTable()"
-    />
-
-    <table border="1">
-      <thead>
-        <tr>
-          <th>HIS_Code</th>
-          <th>LIS_Code</th>
-          <th>Updated By</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody">
-        <% data.forEach((item) => { %>
-        <tr>
-          <td><%= item.his_code %></td>
-          <td><%= item.lis_code %></td>
-          <td><%= item.updated_by %></td>
-          <td>
-            <button
-              onclick="editButtonHandler(event, '<%=item.his_code%>', '<%= item.lis_code%>' )"
-            >
-              Edit
-            </button>
-          </td>
-        </tr>
-        <% }) %>
-      </tbody>
-    </table>
-
-    <script>
-      function filterTable() {
-        const input = document
-          .getElementById("searchInput")
-          .value.toLowerCase();
-        const rows = document.querySelectorAll("#tableBody tr");
-
-        rows.forEach((row) => {
-          const hisCodeCell = row.querySelector("td:first-child");
-          if (hisCodeCell) {
-            const hisCodeText = hisCodeCell.textContent.toLowerCase();
-            row.style.display = hisCodeText.includes(input) ? "" : "none";
-          }
-        });
-      }
-    </script>
+      <div class="table-container">
+        <table border="1">
+          <thead>
+            <tr>
+              <th>HIS_Code</th>
+              <th>LIS_Code</th>
+              <th>Updated By</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <% data.forEach((item) => { %>
+            <tr>
+              <td><%= item.his_code %></td>
+              <td><%= item.lis_code %></td>
+              <td><%= item.updated_by %></td>
+              <td>
+                <button
+                  onclick="editButtonHandler(event, '<%=item.his_code%>', '<%= item.lis_code%>' )"
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </body>
 </html>

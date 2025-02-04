@@ -1,0 +1,17 @@
+<nav class="navbar">
+  <div class="navbar-items">
+    <p class="logo">Ed's Uploader</p>
+    <a href="/view">Home</a>
+    <a href="/view/orderlogs">Order Logs</a>
+    <a href="/view/onotracer">ONO Tracer</a>
+    <a href="/view/testmappings">Test Mappings</a>
+    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+  </div>
+</nav>
+
+<script>
+  function handleLogout() {
+    localStorage.removeItem("access_token"); // Remove token
+    window.location.href = "/view/login"; // Redirect to login page
+  }
+</script>

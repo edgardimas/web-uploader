@@ -2,6 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const { getTMData } = require("../testmappings/controller");
+const { getOrders } = require("../orders/controller");
 const { login } = require("../users/controller");
 const authentication = require("../middleware/authentication");
 const router = express.Router();
@@ -156,6 +157,8 @@ router.get("/authen", authentication, (req, res) => {
 });
 
 router.get("/testmappings", getTMData);
+
+router.get("/onotracer", getOrders);
 
 router.get("/login", (req, res) => {
   res.render("login");

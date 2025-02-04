@@ -1,0 +1,30 @@
+{"level":30,"time":"[2025-01-30 08:53:11]","msg":"Order request with ono yahut has been processed"}
+{"level":50,"time":"[2025-01-30 08:53:13]","msg":"Error inserting order:"}
+{"level":30,"time":"[2025-01-30 08:53:13]","msg":"Kunci « (ono)=(yahut) » sudah ada."}
+{"level":50,"time":"[2025-01-30 08:55:41]","msg":"Error inserting order with ono:"}
+{"level":30,"time":"[2025-01-30 08:55:41]","msg":"Kunci « (ono)=(yahut) » sudah ada."}
+{"level":50,"time":"[2025-01-30 08:58:34]","msg":"Error inserting order with ono: yahut"}
+{"level":30,"time":"[2025-01-30 08:58:34]","msg":"Kunci « (ono)=(yahut) » sudah ada."}
+{"level":50,"time":"[2025-01-30 09:06:04]","msg":"Error inserting order with ono: yahut"}
+{"level":30,"time":"[2025-01-30 09:06:04]","msg":"Kunci « (ono)=(yahut) » sudah ada."}
+{"level":50,"time":"[2025-01-30 09:06:07]","msg":"Error inserting order with ono: yahut"}
+{"level":30,"time":"[2025-01-30 09:06:07]","msg":"Kunci « (ono)=(yahut) » sudah ada."}
+{"level":50,"time":"[2025-01-30 09:06:09]","msg":"Error inserting order with ono: yahut"}
+{"level":30,"time":"[2025-01-30 09:06:09]","msg":"Kunci « (ono)=(yahut) » sudah ada."}
+{"level":50,"time":"[2025-01-30 09:06:10]","msg":"Error inserting order with ono: yahut"}
+{"level":30,"time":"[2025-01-30 09:06:10]","msg":"Kunci « (ono)=(yahut) » sudah ada."}
+{"level":50,"time":"[2025-01-30 09:06:14]","msg":"Error inserting order with ono: yahut"}
+{"level":30,"time":"[2025-01-30 09:06:14]","msg":"Kunci « (ono)=(yahut) » sudah ada."}
+{"level":50,"time":"[2025-01-30 09:06:16]","msg":"Error inserting order with ono: yahut"}
+{"level":30,"time":"[2025-01-30 09:06:16]","msg":"Kunci « (ono)=(yahut) » sudah ada."}
+{"level":50,"time":"[2025-01-30 09:07:54]","msg":"Error inserting order with ono: yahut"}
+{"level":30,"time":"[2025-01-30 09:07:54]","msg":"Kunci « (ono)=(yahut) » sudah ada."}
+{"level":50,"time":"[2025-01-30 09:07:56]","msg":"Error inserting order with ono: yahut"}
+{"level":30,"time":"[2025-01-30 09:07:56]","msg":"Kunci « (ono)=(yahut) » sudah ada."}
+{"level":50,"time":"[2025-01-30 09:14:49]","msg":"No mapping match for 99999990"}
+{"level":50,"time":"[2025-01-30 09:14:49]","msg":"Error inserting order with ono: yahut"}
+{"level":30,"time":"[2025-01-30 09:14:49]","msg":"Kunci « (ono)=(yahut) » sudah ada."}
+{"level":30,"time":"[2025-01-30 09:56:27]","msg":"Order request with ono yahut2 has been processed"}
+{"level":30,"time":"[2025-01-30 10:57:34]","msg":"Order request with ono yahut3 has been processed"}
+{"level":50,"time":"[2025-01-30 10:57:58]","msg":"Error inserting order with ono: yahut3"}
+{"level":30,"time":"[2025-01-30 10:57:58]","msg":"Kunci « (ono)=(yahut3) » sudah ada."}

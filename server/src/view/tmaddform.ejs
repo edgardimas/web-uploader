@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test Mapping Form</title>
+    <title>Add Mapping Form</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
     <script>
       async function handleAddFormSubmit(event) {
         event.preventDefault(); // Prevent default form submission
@@ -16,7 +17,7 @@
 
         const hisCode = document.getElementById("his-code").value;
         const lisCode = document.getElementById("lis-code").value;
-        console.log(hisCode, "<<<s");
+
         try {
           const response = await fetch("/testmappings/addtm", {
             method: "POST",
@@ -47,6 +48,7 @@
     </script>
   </head>
   <body>
+    <%- include('partials/navbar') %>
     <h1>Add Test Mapping</h1>
     <form id="addForm" onsubmit="handleAddFormSubmit(event)">
       <label for="his-code">HIS Code:</label><br />
