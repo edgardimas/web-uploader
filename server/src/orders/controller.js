@@ -9,9 +9,27 @@ const fs = require("fs");
 
 const getOrders = async (req, res, next) => {
   try {
-    const results = await pool.query(queries.getOrders);
+    const page = parseInt(req.query.page) || 1; // Default to page 1
+    const rowsPerPage = 10; // Number of rows per page
+    const offset = (page - 1) * rowsPerPage;
+
+    // Get total count for pagination
+    const countResult = await pool.query("SELECT COUNT(*) FROM lis_order");
+    const totalRows = parseInt(countResult.rows[0].count);
+    const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+    // Fetch paginated results
+    const results = await pool.query(
+      "SELECT * FROM lis_order ORDER BY updated_at DESC LIMIT $1 OFFSET $2;",
+      [rowsPerPage, offset]
+    );
     const rows = results.rows;
-    res.render("onotracer", { data: rows });
+
+    res.render("onotracer", {
+      data: rows,
+      currentPage: page,
+      totalPages: totalPages,
+    });
   } catch (err) {
     next(err);
   }
@@ -19,8 +37,15 @@ const getOrders = async (req, res, next) => {
 
 const getOrderByOno = async (req, res, next) => {
   try {
-    const id = parseInt(req.params.id);
-    const results = await pool.query(queries.getOrderById, [id]);
+    const id = req.params.id; // Use ONO instead of ID
+    const results = await pool.query("SELECT * FROM lis_order WHERE ono = $1", [
+      id,
+    ]);
+
+    if (results.rows.length === 0) {
+      return res.status(404).json({ message: "Order not found." });
+    }
+
     res.status(200).json(results.rows);
   } catch (err) {
     next(err);

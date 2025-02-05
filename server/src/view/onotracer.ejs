@@ -5,20 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test Mappings</title>
     <link rel="stylesheet" href="/styles/styles.css" />
-    <script src="/scripts/test-mappings.js"></script>
+    <script src="/scripts/onotracer.js"></script>
   </head>
   <body>
     <%- include('partials/navbar') %>
-    <h1>Test Mappings</h1>
-    <div class="ono-tracer">
-      <a href="/view/tmaddform">Add new</a>
-      <label for="searchInput">Search HIS/LIS Code:</label>
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="e.g: HCT"
-        oninput="filterTableHIS()"
-      />
+    <h1>ONO Tracing </h1>
+    <label for="searchInput">Search ONO:</label>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="e.g. 12345"
+      onkeypress="handleKeyPress(event)"
+    />
+    <button onclick="searchByOno()">Search</button>
+    
+    <!-- Display results dynamically -->
+    <div id="searchResults"></div>
+
 
       <table class="ono-tracer-table" border="1">
         <thead>
@@ -52,6 +55,19 @@
           <% }) %>
         </tbody>
       </table>
+
+      <!-- Pagination Controls -->
+      <div class="pagination">
+        <% if (currentPage > 1) { %>
+        <a href="?page=<%= currentPage - 1 %>">Previous</a>
+        <% } %>
+
+        <span>Page <%= currentPage %> of <%= totalPages %></span>
+
+        <% if (currentPage < totalPages) { %>
+        <a href="?page=<%= currentPage + 1 %>">Next</a>
+        <% } %>
+      </div>
     </div>
   </body>
 </html>
