@@ -9,6 +9,7 @@ const router = express.Router();
 const logDirPath = path.join(__dirname, "../../logs");
 const ordersDirPath = path.join(logDirPath, "orders");
 const resultsDirPath = path.join(logDirPath, "results");
+const errorsDirPath = path.join(logDirPath, "errors");
 
 const readLatestLogs = (logType, callback) => {
   const logDir = path.join(logDirPath, logType);
@@ -48,6 +49,10 @@ const readLatestLogs = (logType, callback) => {
   });
 };
 
+router.get("/health", (req, res) => {
+  res.json({ status: "running" });
+});
+
 router.get("/data", (req, res) => {
   readLatestLogs("errors", (errorLogs) => {
     res.json(errorLogs);
@@ -75,6 +80,16 @@ router.get("/resultlogs", (req, res) => {
     }
     const logFiles = files.filter((file) => file.endsWith(".log"));
     res.render("resultlogs", { logFiles, logs: [], currentFile: null });
+  });
+});
+
+router.get("/errorlogs", (req, res) => {
+  fs.readdir(errorsDirPath, (err, files) => {
+    if (err) {
+      return res.status(500).send("Error reading log directory.");
+    }
+    const logFiles = files.filter((file) => file.endsWith(".log"));
+    res.render("errorlogs", { logFiles, logs: [], currentFile: null });
   });
 });
 
@@ -146,6 +161,42 @@ router.get("/results/:filename", (req, res) => {
 
       const logFiles = files.filter((file) => file.endsWith(".log"));
       res.render("resultlogs", { logFiles, logs, currentFile: filename });
+    });
+  });
+});
+
+router.get("/errors/:filename", (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(errorsDirPath, filename);
+
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).send("Log file not found.");
+  }
+
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    if (err) {
+      return res.status(500).send("Error reading log file.");
+    }
+
+    const logs = data
+      .split("\n")
+      .filter((line) => line)
+      .map((line) => {
+        try {
+          const parsed = JSON.parse(line);
+          return { time: parsed.time, msg: parsed.msg || "Invalid log entry" };
+        } catch {
+          return { time: "Invalid time", msg: "Invalid log entry" };
+        }
+      });
+
+    fs.readdir(errorsDirPath, (err, files) => {
+      if (err) {
+        return res.status(500).send("Error reading log directory.");
+      }
+
+      const logFiles = files.filter((file) => file.endsWith(".log"));
+      res.render("errorlogs", { logFiles, logs, currentFile: filename });
     });
   });
 });

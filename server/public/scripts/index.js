@@ -57,8 +57,28 @@ async function fetchLogs() {
   }
 }
 
+async function checkServer() {
+  try {
+    let response = await fetch("http://localhost:3000/view/health");
+    console.log(response, "<<<<<");
+    if (response.ok) {
+      document.getElementById("status").innerText = "✅ Uploader is running!";
+    } else {
+      document.getElementById("status").innerText =
+        "❌ Uploader is NOT running!";
+    }
+  } catch (err) {
+    document.getElementById("status").innerText = "❌ Uploader is NOT running!";
+  }
+}
+
 window.onload = () => {
   fetchLogs();
 };
 
-setInterval(fetchLogs, 2000);
+setInterval(() => {
+  fetchLogs();
+  checkServer();
+}, 2000);
+
+checkServer();
