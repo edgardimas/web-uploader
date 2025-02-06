@@ -4,6 +4,7 @@ const resultRoutes = require("./src/results/routes");
 const viewRoutes = require("./src/view/routes");
 const testMappingRoutes = require("./src/testmappings/router");
 const checkForR01Files = require("./src/checker/fileChecker");
+const textChecker = require("./src/checker/textChecker");
 const errorHandler = require("./src/middleware/errorHandler");
 const app = express();
 const port = 3000;
@@ -27,5 +28,6 @@ app.use("/testmappings", testMappingRoutes);
 app.use(errorHandler);
 
 setInterval(checkForR01Files, 2000);
+setInterval(textChecker, 2000);
 
 app.listen(port, () => console.log(`app listening on port ${port}`));

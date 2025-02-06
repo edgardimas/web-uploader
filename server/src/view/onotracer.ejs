@@ -30,8 +30,8 @@
             <th>Ono</th>
             <th>Name</th>
             <th>PID</th>
-            <th>Order Control</th>
-            <th>Status</th>
+            <th>is_received</th>
+            <th>is_ok</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -42,8 +42,21 @@
             <td><%= item.ono %></td>
             <td><%= item.name %></td>
             <td><%= item.pid %></td>
-            <td><%= item.order_control %></td>
-            <td>Status</td>
+            <td class="center-icon">
+                <% if (item.is_received) { %>
+                    <span style="color: green;">✅</span>
+                <% } else { %>
+                    <span style="color: red;">❌</span>
+                <% } %>
+            </td>
+            
+            <td class="center-icon">
+                <% if (item.is_ok) { %>
+                    <span style="color: green;">✅</span>
+                <% } else { %>
+                    <span style="color: red;">❌</span>
+                <% } %>
+            </td>
             <td>
               <button
                 onclick="editButtonHandler(event, '<%=item.his_code%>', '<%= item.lis_code%>' )"

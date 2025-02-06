@@ -150,7 +150,9 @@ order_testid=${joinedHT}`;
 
     const filePath = `/hcini/queue/HL7_in/O01_${ono}.txt`;
     orderLogger.info(`HL7 file has been created: O01_${ono}.txt`);
-
+    const raw_data = JSON.stringify(req.body);
+    const is_received = true;
+    const is_ok = false;
     // Insert order into database
     await new Promise((resolve, reject) => {
       pool.query(
@@ -184,11 +186,14 @@ order_testid=${joinedHT}`;
           visitno,
           joinedHT,
           comment,
+          raw_data,
+          is_received,
+          is_ok,
         ],
         (error) => {
           if (error) {
             orderLogger.error(`Error inserting order with ono: ${ono}`);
-            orderLogger.error(`Error inserting order with ono: ${ono}`);
+            errorLogger.info(`Error inserting order with ono: ${ono}`);
             return reject(error);
           }
           orderLogger.info(

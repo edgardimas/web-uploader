@@ -130,7 +130,10 @@ th {
 }
 
 /* Table rows */
+
 td {
+  text-align: center; /* Ensures inline elements (backup for flexbox) */
+  vertical-align: middle; /* Ensures vertical centering */
   padding: 10px;
   border: 1px solid #555;
 }
@@ -181,4 +184,10 @@ button:hover {
 .ono-tracer {
   width: 90%;
   margin: 0 auto;
+}
+
+.center-icon {
+  margin: auto;
+  height: 100%; /* Ensures full height inside the table cell */
+  font-size: 20px; /* Adjust icon size */
 }

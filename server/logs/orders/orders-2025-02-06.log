@@ -32,3 +32,38 @@
 {"level":50,"time":"[2025-02-06 14:45:22]","msg":"Error inserting order with ono: ono421"}
 {"level":50,"time":"[2025-02-06 14:45:22]","msg":"Error inserting order with ono: ono421"}
 {"level":30,"time":"[2025-02-06 14:45:22]","msg":"Kunci « (ono)=(ono421) » sudah ada."}
+{"level":30,"time":"[2025-02-06 19:35:57]","msg":"HL7 file has been created: O01_ono_baru_123.txt"}
+{"level":50,"time":"[2025-02-06 19:35:57]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":50,"time":"[2025-02-06 19:35:57]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":30,"time":"[2025-02-06 19:39:06]","msg":"HL7 file has been created: O01_ono_baru_123.txt"}
+{"level":50,"time":"[2025-02-06 19:39:06]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":50,"time":"[2025-02-06 19:39:06]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":30,"time":"[2025-02-06 19:42:38]","msg":"HL7 file has been created: O01_ono_baru_123.txt"}
+{"level":50,"time":"[2025-02-06 19:42:38]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":50,"time":"[2025-02-06 19:42:38]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":30,"time":"[2025-02-06 19:43:23]","msg":"HL7 file has been created: O01_ono_baru_123.txt"}
+{"level":50,"time":"[2025-02-06 19:43:23]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":50,"time":"[2025-02-06 19:43:23]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":30,"time":"[2025-02-06 19:44:36]","msg":"HL7 file has been created: O01_ono_baru_123.txt"}
+{"level":50,"time":"[2025-02-06 19:44:36]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":30,"time":"[2025-02-06 19:45:15]","msg":"HL7 file has been created: O01_ono_baru_123.txt"}
+{"level":50,"time":"[2025-02-06 19:45:15]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":30,"time":"[2025-02-06 19:46:21]","msg":"HL7 file has been created: O01_ono_baru_123.txt"}
+{"level":50,"time":"[2025-02-06 19:46:21]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":30,"time":"[2025-02-06 19:47:39]","msg":"HL7 file has been created: O01_ono_baru_123.txt"}
+{"level":50,"time":"[2025-02-06 19:47:39]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":30,"time":"[2025-02-06 19:47:40]","msg":"HL7 file has been created: O01_ono_baru_123.txt"}
+{"level":50,"time":"[2025-02-06 19:47:40]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":30,"time":"[2025-02-06 19:47:45]","msg":"order with ono: ono123 has been edited"}
+{"level":30,"time":"[2025-02-06 19:47:48]","msg":"HL7 file has been created: O01_ono_baru_123.txt"}
+{"level":50,"time":"[2025-02-06 19:47:48]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":30,"time":"[2025-02-06 19:47:48]","msg":"HL7 file has been created: O01_ono_baru_123.txt"}
+{"level":50,"time":"[2025-02-06 19:47:48]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":30,"time":"[2025-02-06 19:47:49]","msg":"HL7 file has been created: O01_ono_baru_123.txt"}
+{"level":50,"time":"[2025-02-06 19:47:49]","msg":"Error inserting order with ono: ono_baru_123"}
+{"level":30,"time":"[2025-02-06 19:49:53]","msg":"HL7 file has been created: O01_ono_baru_123.txt"}
+{"level":30,"time":"[2025-02-06 19:49:53]","msg":"Order request with ono ono_baru_123 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-06 19:51:51]","msg":"HL7 file has been created: O01_ono_baru_1331.txt"}
+{"level":50,"time":"[2025-02-06 19:51:51]","msg":"Error inserting order with ono: ono_baru_1331"}
+{"level":30,"time":"[2025-02-06 19:55:10]","msg":"HL7 file has been created: O01_ono_baru_1331.txt"}
+{"level":30,"time":"[2025-02-06 19:55:10]","msg":"Order request with ono ono_baru_1331 has been inserted into uploader database"}
