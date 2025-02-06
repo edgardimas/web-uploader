@@ -1,0 +1,34 @@
+{"level":30,"time":"[2025-02-06 13:33:21]","msg":"HL7 file has been created: O01_ono123.txt"}
+{"level":30,"time":"[2025-02-06 13:33:21]","msg":"Order request with ono ono123 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-06 13:54:25]","msg":"order with ono: ono123 has been edited"}
+{"level":30,"time":"[2025-02-06 13:57:43]","msg":"order with ono: ono123 has been edited"}
+{"level":30,"time":"[2025-02-06 13:58:06]","msg":"order with ono: ono123 has been edited"}
+{"level":30,"time":"[2025-02-06 14:00:53]","msg":"order with ono: ono123 has been edited"}
+{"level":30,"time":"[2025-02-06 14:03:09]","msg":"order with ono: ono123 has been edited"}
+{"level":30,"time":"[2025-02-06 14:05:12]","msg":"order with ono: ono123 has been edited"}
+{"level":30,"time":"[2025-02-06 14:16:46]","msg":"order with ono: ono123 has been edited"}
+{"level":30,"time":"[2025-02-06 14:33:11]","msg":"HL7 file has been created: O01_ono123.txt"}
+{"level":50,"time":"[2025-02-06 14:33:11]","msg":"Error inserting order with ono: ono123"}
+{"level":50,"time":"[2025-02-06 14:33:11]","msg":"Error inserting order with ono: ono123"}
+{"level":30,"time":"[2025-02-06 14:33:11]","msg":"Kunci « (ono)=(ono123) » sudah ada."}
+{"level":30,"time":"[2025-02-06 14:33:30]","msg":"HL7 file has been created: O01_ono12.txt"}
+{"level":30,"time":"[2025-02-06 14:33:30]","msg":"Order request with ono ono12 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-06 14:34:46]","msg":"order with ono: ono12 has been deleted"}
+{"level":30,"time":"[2025-02-06 14:34:57]","msg":"HL7 file has been created: O01_ono421.txt"}
+{"level":30,"time":"[2025-02-06 14:34:57]","msg":"Order request with ono ono421 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-06 14:44:02]","msg":"HL7 file has been created: O01_ono421.txt"}
+{"level":50,"time":"[2025-02-06 14:44:02]","msg":"Error inserting order with ono: ono421"}
+{"level":50,"time":"[2025-02-06 14:44:02]","msg":"Error inserting order with ono: ono421"}
+{"level":30,"time":"[2025-02-06 14:44:02]","msg":"Kunci « (ono)=(ono421) » sudah ada."}
+{"level":30,"time":"[2025-02-06 14:44:37]","msg":"HL7 file has been created: O01_ono421.txt"}
+{"level":50,"time":"[2025-02-06 14:44:37]","msg":"Error inserting order with ono: ono421"}
+{"level":50,"time":"[2025-02-06 14:44:37]","msg":"Error inserting order with ono: ono421"}
+{"level":30,"time":"[2025-02-06 14:44:37]","msg":"Kunci « (ono)=(ono421) » sudah ada."}
+{"level":30,"time":"[2025-02-06 14:45:21]","msg":"HL7 file has been created: O01_ono421.txt"}
+{"level":50,"time":"[2025-02-06 14:45:21]","msg":"Error inserting order with ono: ono421"}
+{"level":50,"time":"[2025-02-06 14:45:21]","msg":"Error inserting order with ono: ono421"}
+{"level":30,"time":"[2025-02-06 14:45:21]","msg":"Kunci « (ono)=(ono421) » sudah ada."}
+{"level":30,"time":"[2025-02-06 14:45:22]","msg":"HL7 file has been created: O01_ono421.txt"}
+{"level":50,"time":"[2025-02-06 14:45:22]","msg":"Error inserting order with ono: ono421"}
+{"level":50,"time":"[2025-02-06 14:45:22]","msg":"Error inserting order with ono: ono421"}
+{"level":30,"time":"[2025-02-06 14:45:22]","msg":"Kunci « (ono)=(ono421) » sudah ada."}

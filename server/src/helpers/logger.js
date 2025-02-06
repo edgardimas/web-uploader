@@ -29,5 +29,6 @@ const createLogger = (logType) => {
 // Separate loggers
 const orderLogger = createLogger("orders");
 const resultLogger = createLogger("results");
+const errorLogger = createLogger("errors");
 
-module.exports = { orderLogger, resultLogger };
+module.exports = { orderLogger, resultLogger, errorLogger };

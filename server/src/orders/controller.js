@@ -2,7 +2,7 @@ const pool = require("../../database");
 const queries = require("./queries");
 const pino = require("pino");
 const path = require("path");
-const { orderLogger } = require("../helpers/logger");
+const { orderLogger, errorLogger } = require("../helpers/logger");
 const logDirPath = path.join(__dirname, "../../logs");
 const ordersDirPath = path.join(logDirPath, "orders");
 const fs = require("fs");
@@ -85,8 +85,6 @@ const addOrder = async (req, res, next) => {
       order_testid,
       comment,
     } = req.body;
-
-    console.log(req.body, "<<<<<<");
 
     function pad2(n) {
       return n < 10 ? "0" + n : n;
@@ -189,6 +187,7 @@ order_testid=${joinedHT}`;
         ],
         (error) => {
           if (error) {
+            orderLogger.error(`Error inserting order with ono: ${ono}`);
             orderLogger.error(`Error inserting order with ono: ${ono}`);
             return reject(error);
           }
@@ -319,8 +318,8 @@ const updateOrder = async (req, res, next) => {
     const joinedHT = processedHT.join("~");
 
     const newDate = new Date()
-      .toISOString()
-      .replace(/[-:.TZ]/g, "")
+      .toLocaleString("sv-SE", { timeZone: "Asia/Jakarta" }) // Uses local time from system
+      .replace(/[-:\s]/g, "")
       .slice(0, 14);
     const filePath = `/hcini/queue/HL7_in/O01_${ono}.txt`;
 
@@ -372,7 +371,6 @@ const removeOrder = async (req, res, next) => {
     const ono = req.params.ono;
 
     // Check if order exists
-    console.log(ono);
     const existingOrder = await pool.query(queries.getOrderById, [ono]);
     if (!existingOrder.rows.length) {
       return res.status(404).send("Order does not exist in the database");

@@ -2,10 +2,8 @@ const pool = require("../../database");
 
 const obxMapper = async (obxData) => {
   try {
-    // 1️⃣ Extract LIS codes (first part of each OBX string)
     const lisCodes = Object.values(obxData).map((obx) => obx.split("|")[0]);
 
-    // 2️⃣ Query database to get HIS codes for each LIS code
     const hisCodes = await Promise.all(
       lisCodes.map(
         (lisCode) =>

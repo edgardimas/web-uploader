@@ -49,10 +49,8 @@ const readLatestLogs = (logType, callback) => {
 };
 
 router.get("/data", (req, res) => {
-  readLatestLogs("orders", (orderLogs) => {
-    readLatestLogs("results", (resultLogs) => {
-      res.json({ orderLogs, resultLogs });
-    });
+  readLatestLogs("errors", (errorLogs) => {
+    res.json(errorLogs);
   });
 });
 

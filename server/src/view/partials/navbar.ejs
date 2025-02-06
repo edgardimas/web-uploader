@@ -2,16 +2,68 @@
   <div class="navbar-items">
     <p class="logo">Ed's Uploader</p>
     <a href="/view">Home</a>
-    <a href="/view/orderlogs">Order Logs</a>
+
+    <div class="dropdown">
+      <button class="dropbtn">Order</button>
+      <div class="dropdown-content">
+        <a href="/view/orderlogs">Order Log</a>
+        <a href="/view/resultlogs">Result Log</a>
+        <a href="/view/errorlogs">Error Log</a>
+      </div>
+    </div>
+
     <a href="/view/onotracer">ONO Tracer</a>
     <a href="/view/testmappings">Test Mappings</a>
     <button class="logout-btn" onclick="handleLogout()">Logout</button>
   </div>
 </nav>
 
+<style>
+  .navbar-items {
+    display: flex;
+    align-items: center;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+  .dropbtn {
+    color: #ddd;
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: black;
+    padding: 10px;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+</style>
+
 <script>
   function handleLogout() {
-    localStorage.removeItem("access_token"); // Remove token
-    window.location.href = "/view/login"; // Redirect to login page
+    localStorage.removeItem("access_token");
+    window.location.href = "/view/login";
   }
 </script>

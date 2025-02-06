@@ -42,23 +42,15 @@ async function fetchLogs() {
     });
 
     const data = await response.json();
+    console.log(data, "<<<<< data");
 
-    // Update Order Logs
-    const orderLogContainer = document.getElementById("orderLogs");
-    orderLogContainer.innerHTML = ""; // Clear current logs
-    data.orderLogs.forEach((log) => {
+    // Update error Logs
+    const errorLogContainer = document.getElementById("errorLogs");
+    errorLogContainer.innerHTML = ""; // Clear current logs
+    data.forEach((log) => {
       const logItem = document.createElement("li");
       logItem.textContent = `${log.time} ${log.msg}`;
-      orderLogContainer.appendChild(logItem);
-    });
-
-    // Update Result Logs
-    const resultLogContainer = document.getElementById("resultLogs");
-    resultLogContainer.innerHTML = ""; // Clear current logs
-    data.resultLogs.forEach((log) => {
-      const logItem = document.createElement("li");
-      logItem.textContent = `${log.time} ${log.msg}`;
-      resultLogContainer.appendChild(logItem);
+      errorLogContainer.appendChild(logItem);
     });
   } catch (error) {
     console.error("Error fetching logs:", error);
