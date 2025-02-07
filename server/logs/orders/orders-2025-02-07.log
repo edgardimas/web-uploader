@@ -1,0 +1,22 @@
+{"level":30,"time":"[2025-02-07 08:02:47]","msg":"HL7 file has been created: O01_ono_baru_998.txt"}
+{"level":30,"time":"[2025-02-07 08:02:47]","msg":"Order request with ono ono_baru_998 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-07 08:02:50]","msg":"HL7 file has been created: O01_ono_baru_998.txt"}
+{"level":50,"time":"[2025-02-07 08:02:50]","msg":"Error inserting order with ono: ono_baru_998"}
+{"level":30,"time":"[2025-02-07 08:02:50]","msg":"Kunci « (ono)=(ono_baru_998) » sudah ada."}
+{"level":30,"time":"[2025-02-07 08:12:39]","msg":"order with ono: ono123 has been edited"}
+{"level":30,"time":"[2025-02-07 08:13:49]","msg":"order with ono: ono_baru_998 has been edited"}
+{"level":30,"time":"[2025-02-07 08:24:20]","msg":"order with ono: ono_baru_998 has been deleted"}
+{"level":30,"time":"[2025-02-07 10:39:04]","msg":"order with ono: ono123 has been edited"}
+{"level":30,"time":"[2025-02-07 10:43:45]","msg":"order with ono: ono123 has been edited"}
+{"level":30,"time":"[2025-02-07 10:45:46]","msg":"HL7 file has been created: O01_ono_baru_998.txt"}
+{"level":30,"time":"[2025-02-07 10:45:46]","msg":"Order request with ono ono_baru_998 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-07 10:51:11]","msg":"order with ono: ono_baru_998 has been deleted"}
+{"level":50,"time":"[2025-02-07 10:52:49]","msg":"No mapping match for AST"}
+{"level":30,"time":"[2025-02-07 10:52:49]","msg":"HL7 file has been created: O01_ono_baru_998.txt"}
+{"level":50,"time":"[2025-02-07 10:52:49]","msg":"Error inserting order with ono: ono_baru_998"}
+{"level":30,"time":"[2025-02-07 10:52:49]","msg":"Kunci « (ono)=(ono_baru_998) » sudah ada."}
+{"level":50,"time":"[2025-02-07 10:52:59]","msg":"No mapping match for AST"}
+{"level":30,"time":"[2025-02-07 10:52:59]","msg":"HL7 file has been created: O01_ono_baru_992.txt"}
+{"level":30,"time":"[2025-02-07 10:52:59]","msg":"Order request with ono ono_baru_992 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-07 10:55:42]","msg":"HL7 file has been created: O01_ono_baru_923.txt"}
+{"level":30,"time":"[2025-02-07 10:55:42]","msg":"Order request with ono ono_baru_923 has been inserted into uploader database"}

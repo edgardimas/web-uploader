@@ -1,87 +1,76 @@
-const fs = require("fs");
+const fs = require("fs").promises;
+const iconv = require("iconv-lite");
 const path = require("path");
-const pool = require("../../database");
-
-// Define the source directory (your folder)
+const parser = require("./parser");
+const obxExtractor = require("./obxExtractor");
+const resHdrUp = require("./resHdrUp");
+const resDtUp = require("./resDtUp");
+const { orderLogger, resultLogger } = require("../helpers/logger");
+const obxMapper = require("./obxMapper");
 const folderPath = path.join("C:/hcini", "queue", "HL7_out");
+let currentState = 0;
 
-// Define the destination folder (temp_txt outside HL7_out)
-const destDir = path.join("C:/hcini", "queue", "temp_txt");
-
-// Ensure temp_txt folder exists
-if (!fs.existsSync(destDir)) {
-  fs.mkdirSync(destDir, { recursive: true });
-}
-
-// Function to scan and process .txt files
-async function textChecker() {
+async function checkForR01Files() {
   try {
-    // Read all files in the folderPath
-    const files = fs.readdirSync(folderPath);
+    // Read the folder contents asynchronously
+    const files = await fs.readdir(folderPath);
 
-    // Filter for only .txt files
-    const txtFiles = files.filter((file) => file.endsWith(".txt"));
-
-    if (txtFiles.length === 0) {
-      console.log("No .txt files found.");
-      return;
-    }
-
-    for (const file of txtFiles) {
-      const filePath = path.join(folderPath, file);
-
-      // Read file contents
-      const data = fs.readFileSync(filePath, "utf8");
-
-      // Extract ack_control and ono using regex
-      const ackControlMatch = data.match(/ack_control=(\w+)/);
-      const onoMatch = data.match(/ono=([\w_]+)/);
-
-      if (!ackControlMatch || !onoMatch) {
-        console.log(`Skipping ${file}, missing required fields.`);
-        continue;
-      }
-
-      const ackControl = ackControlMatch[1];
-      const ono = onoMatch[1];
-
-      console.log(
-        `Processing: ${file}, ACK Control: ${ackControl}, ONO: ${ono}`
-      );
-
-      // If ack_control is "AA", update the database
-      if (ackControl === "AA") {
-        await updateDatabase(ono);
-      }
-
-      // Move file to temp_txt folder
-      const newFilePath = path.join(destDir, file);
-      fs.renameSync(filePath, newFilePath);
-      console.log(`Moved ${file} to temp_txt.`);
-    }
-  } catch (error) {
-    console.error("Error scanning files:", error);
-  }
-}
-
-// Function to update the database
-async function updateDatabase(ono) {
-  const client = await pool.connect();
-  try {
-    const result = await client.query(
-      "UPDATE lis_order SET is_ok = TRUE WHERE ono = $1",
-      [ono]
+    // Filter the files to get only .r01 files
+    const r01Files = files.filter(
+      (file) => path.extname(file).toLowerCase() === ".r01"
     );
-    if (result.rowCount > 0) {
-      console.log(`Updated is_ok for ONO: ${ono}`);
+
+    if (r01Files.length > 0) {
+      resultLogger.info(`Found .r01 file(s): ${r01Files}`);
+
+      // Process each file
+      for (const file of r01Files) {
+        const filePath = path.join(folderPath, file);
+        try {
+          // Read the file content
+          const data = await fs.readFile(filePath, { encoding: "utf8" });
+
+          // Decode and correct the data
+          const decodedData = iconv.decode(
+            Buffer.from(data, "utf8"),
+            "ISO-8859-1"
+          );
+          const correctedData = decodedData.replace(/ýL/g, "µL");
+
+          // Parse and extract necessary data
+          const parsed = parser(correctedData);
+          const obx = obxExtractor(parsed);
+          const mappedObx = await obxMapper(obx);
+          // Update the records
+          await resHdrUp(parsed, file);
+          await resDtUp(mappedObx, parsed.ono, file);
+
+          // Move the file to the new destination
+          const destinationPath = path.join(
+            "C:/hcini",
+            "queue",
+            "HL7_out",
+            "temp",
+            file
+          );
+          await fs.rename(filePath, destinationPath);
+
+          console.log(`File ${file} moved successfully!`);
+          currentState = 0;
+        } catch (fileErr) {
+          console.error(`Error processing file ${file}:`, fileErr.message);
+        }
+      }
     } else {
-      console.log(`ONO: ${ono} not found in the database.`);
+      if (currentState == 0) {
+        resultLogger.info("No R01 Found");
+        currentState = 1;
+      }
     }
-  } catch (error) {
-    console.error("Database update error:", error);
-  } finally {
-    client.release(); // Release connection back to the pool
+  } catch (err) {
+    console.error("Error reading folder:", err.message);
+    resultLogger.info(`Error reading folder: ${err.message}`);
   }
 }
 
-module.exports = textChecker;
+module.exports = checkForR01Files;

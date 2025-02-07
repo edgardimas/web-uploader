@@ -30,9 +30,9 @@
             <th>Ono</th>
             <th>Name</th>
             <th>PID</th>
+            <th>Control</th>
             <th>is_received</th>
             <th>is_ok</th>
-            <th>Actions</th>
           </tr>
         </thead>
         <tbody id="tableBody">
@@ -42,6 +42,7 @@
             <td><%= item.ono %></td>
             <td><%= item.name %></td>
             <td><%= item.pid %></td>
+            <td><%= item.order_control %></td>
             <td class="center-icon">
                 <% if (item.is_received) { %>
                     <span style="color: green;">✅</span>
@@ -57,13 +58,13 @@
                     <span style="color: red;">❌</span>
                 <% } %>
             </td>
-            <td>
+            <!-- <td>
               <button
                 onclick="editButtonHandler(event, '<%=item.his_code%>', '<%= item.lis_code%>' )"
               >
                 Details
               </button>
-            </td>
+            </td> -->
           </tr>
           <% }) %>
         </tbody>

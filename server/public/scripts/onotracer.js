@@ -25,7 +25,6 @@ async function searchByOno() {
     // Hide the original table and pagination
     tableContainer.style.display = "none";
     pagination.style.display = "none";
-
     // Show search results
     displaySearchResults(data);
   } catch (error) {
@@ -44,19 +43,19 @@ function displaySearchResults(data) {
   }
 
   let tableHTML = `
-    <table border="1">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>ONO</th>
-          <th>Name</th>
-          <th>PID</th>
-          <th>Order Control</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
+    <table class="ono-tracer-table" border="1">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Ono</th>
+            <th>Name</th>
+            <th>PID</th>
+            <th>Control</th>
+            <th>is_received</th>
+            <th>is_ok</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
   `;
 
   data.forEach((item) => {
@@ -67,11 +66,19 @@ function displaySearchResults(data) {
         <td>${item.name}</td>
         <td>${item.pid}</td>
         <td>${item.order_control}</td>
-        <td>${item.status || "Status"}</td>
-        <td>
-          <button onclick="editButtonHandler(event, '${item.his_code}', '${
-      item.lis_code
-    }')">Details</button>
+        <td class="center-icon">
+            ${
+              item.is_received
+                ? '<span style="color: green;">✅</span>'
+                : '<span style="color: red;">❌</span>'
+            }
+        </td>
+        <td class="center-icon">
+            ${
+              item.is_ok
+                ? '<span style="color: green;">✅</span>'
+                : '<span style="color: red;">❌</span>'
+            }
         </td>
       </tr>
     `;
@@ -87,11 +94,6 @@ function displaySearchResults(data) {
 }
 
 function resetSearch() {
-  // Show the original table and pagination
-  document.querySelector(".ono-tracer-table").style.display = "table";
-  document.querySelector(".pagination").style.display = "block";
-
-  // Clear search results
-  document.getElementById("searchResults").innerHTML = "";
-  document.getElementById("searchInput").value = "";
+  // Restore visibility of the original table
+  location.reload(); // Reloads the page to restore the table
 }

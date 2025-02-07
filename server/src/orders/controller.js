@@ -225,10 +225,15 @@ const updateOrder = async (req, res, next) => {
     const ono = req.params.ono;
     const existingOrder = await pool.query(queries.getOrderById, [ono]);
     if (!existingOrder.rows.length) {
-      return res.status(404).send("Order does not exist in database");
+      errorLogger.info(
+        `Purposed edited order with ono ${ono}  does not exist in uploader database`
+      );
+      return res.status(404).send("Order does not exist in database!");
     }
 
     const data = req.body;
+    data.order_control = "RP";
+    console.log(data, "<<<<<<");
     const allowedColumns = [
       "order_control",
       "site",
