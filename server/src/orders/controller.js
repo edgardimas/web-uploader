@@ -292,6 +292,8 @@ const updateOrder = async (req, res, next) => {
       name = "",
       address1 = "",
       address2 = "",
+      address3 = "",
+      address4 = "",
       ptype = "",
       birth_dt = "",
       sex = "",
@@ -343,7 +345,7 @@ site_id=${site}
 pid=${pid}
 apid=${apid}
 pname=${name}
-address=${address1}^^${address2}
+address=${address1}^${address2}^${address3}^${address4}
 ptype=${ptype}
 birth_dt=${birth_dt}
 sex=${sex}

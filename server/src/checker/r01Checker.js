@@ -1,12 +1,12 @@
 const fs = require("fs").promises;
 const iconv = require("iconv-lite");
 const path = require("path");
-const parser = require("./parser");
-const obxExtractor = require("./obxExtractor");
-const resHdrUp = require("./resHdrUp");
-const resDtUp = require("./resDtUp");
+const parser = require("./functions/parser");
+const obxExtractor = require("./functions/obxExtractor");
+const resHdrUp = require("./functions/resHdrUp");
+const resDtUp = require("./functions/resDtUp");
 const { orderLogger, resultLogger } = require("../helpers/logger");
-const obxMapper = require("./obxMapper");
+const obxMapper = require("./functions/obxMapper");
 const folderPath = path.join("C:/hcini", "queue", "HL7_out");
 let currentState = 0;
 

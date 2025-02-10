@@ -93,6 +93,11 @@ function displaySearchResults(data) {
   `;
 }
 
+function isOkErrButtonHandler(event, ono) {
+  event.preventDefault();
+  window.location.href = `/view/hclaberror/${ono}`; // Redirect to the error handler page
+}
+
 function resetSearch() {
   // Restore visibility of the original table
   location.reload(); // Reloads the page to restore the table

@@ -1,0 +1,30 @@
+{"level":50,"time":"[2025-02-10 11:33:40]","msg":"No mapping match for asal1"}
+{"level":30,"time":"[2025-02-10 11:33:40]","msg":"HL7 file has been created: O01_omo123.txt"}
+{"level":30,"time":"[2025-02-10 11:33:40]","msg":"Order request with ono omo123 has been inserted into uploader database"}
+{"level":50,"time":"[2025-02-10 11:34:27]","msg":"No mapping match for asal1"}
+{"level":30,"time":"[2025-02-10 11:34:27]","msg":"HL7 file has been created: O01_omo123.txt"}
+{"level":50,"time":"[2025-02-10 11:34:27]","msg":"Error inserting order with ono: omo123"}
+{"level":30,"time":"[2025-02-10 11:34:27]","msg":"Kunci « (ono)=(omo123) » sudah ada."}
+{"level":50,"time":"[2025-02-10 14:53:24]","msg":"No mapping match for asal1"}
+{"level":30,"time":"[2025-02-10 14:53:24]","msg":"HL7 file has been created: O01_omo123.txt"}
+{"level":50,"time":"[2025-02-10 14:53:24]","msg":"Error inserting order with ono: omo123"}
+{"level":30,"time":"[2025-02-10 14:53:24]","msg":"Kunci « (ono)=(omo123) » sudah ada."}
+{"level":50,"time":"[2025-02-10 14:54:48]","msg":"No mapping match for AST"}
+{"level":30,"time":"[2025-02-10 14:54:48]","msg":"HL7 file has been created: O01_omo332.txt"}
+{"level":30,"time":"[2025-02-10 14:54:48]","msg":"Order request with ono omo332 has been inserted into uploader database"}
+{"level":50,"time":"[2025-02-10 15:03:26]","msg":"No mapping match for AST"}
+{"level":30,"time":"[2025-02-10 15:03:26]","msg":"HL7 file has been created: O01_omo332.txt"}
+{"level":50,"time":"[2025-02-10 15:03:26]","msg":"Error inserting order with ono: omo332"}
+{"level":30,"time":"[2025-02-10 15:03:26]","msg":"Kunci « (ono)=(omo332) » sudah ada."}
+{"level":50,"time":"[2025-02-10 15:03:34]","msg":"No mapping match for AST"}
+{"level":30,"time":"[2025-02-10 15:03:34]","msg":"HL7 file has been created: O01_omoom22.txt"}
+{"level":30,"time":"[2025-02-10 15:03:34]","msg":"Order request with ono omoom22 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-10 15:05:45]","msg":"HL7 file has been created: O01_omoom22.txt"}
+{"level":50,"time":"[2025-02-10 15:05:45]","msg":"Error inserting order with ono: omoom22"}
+{"level":30,"time":"[2025-02-10 15:05:45]","msg":"Kunci « (ono)=(omoom22) » sudah ada."}
+{"level":30,"time":"[2025-02-10 15:05:52]","msg":"HL7 file has been created: O01_ofao11.txt"}
+{"level":30,"time":"[2025-02-10 15:05:52]","msg":"Order request with ono ofao11 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-10 15:07:13]","msg":"HL7 file has been created: O01_fasd23.txt"}
+{"level":30,"time":"[2025-02-10 15:07:13]","msg":"Order request with ono fasd23 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-10 15:10:52]","msg":"HL7 file has been created: O01_fhfh77.txt"}
+{"level":30,"time":"[2025-02-10 15:10:52]","msg":"Order request with ono fhfh77 has been inserted into uploader database"}

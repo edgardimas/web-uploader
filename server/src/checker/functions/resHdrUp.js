@@ -1,5 +1,5 @@
-const pool = require("../../database");
-const queries = require("./queries");
+const pool = require("../../../database");
+const queries = require("../queries/queries");
 
 function resHdrUp(parsed, file) {
   pool.query(

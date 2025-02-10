@@ -223,4 +223,8 @@ router.get("/tmeditform", (req, res) => {
 
 router.post("/login", login);
 
+router.get("/hclaberror/:ono", (req, res) => {
+  res.render("hclaberror");
+});
+
 module.exports = router;

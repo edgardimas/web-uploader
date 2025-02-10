@@ -1,5 +1,5 @@
-const pool = require("../../database");
-const queries = require("./queries");
+const pool = require("../../../database");
+const queries = require("../queries/queries");
 
 function resDtUp(obx, ono, file) {
   for (const [key, value] of Object.entries(obx)) {

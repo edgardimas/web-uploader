@@ -9,7 +9,7 @@
   </head>
   <body>
     <%- include('partials/navbar') %>
-    <h1>ONO Tracing </h1>
+    <h1>ONO Tracing</h1>
     <label for="searchInput">Search ONO:</label>
     <input
       type="text"
@@ -18,70 +18,66 @@
       onkeypress="handleKeyPress(event)"
     />
     <button onclick="searchByOno()">Search</button>
-    
+
     <!-- Display results dynamically -->
     <div id="searchResults"></div>
 
+    <table class="ono-tracer-table" border="1">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Ono</th>
+          <th>Name</th>
+          <th>PID</th>
+          <th>Control</th>
+          <th>is_received</th>
+          <th>is_ok</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <% data.forEach((item) => { %>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= item.ono %></td>
+          <td><%= item.name %></td>
+          <td><%= item.pid %></td>
+          <td><%= item.order_control %></td>
+          <td class="center-icon">
+            <% if (item.is_received) { %>
+            <span style="color: green">✅</span>
+            <% } else { %>
+            <span style="color: red">❌</span>
+            <% } %>
+          </td>
 
-      <table class="ono-tracer-table" border="1">
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>Ono</th>
-            <th>Name</th>
-            <th>PID</th>
-            <th>Control</th>
-            <th>is_received</th>
-            <th>is_ok</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody">
-          <% data.forEach((item) => { %>
-          <tr>
-            <td><%= item.id %></td>
-            <td><%= item.ono %></td>
-            <td><%= item.name %></td>
-            <td><%= item.pid %></td>
-            <td><%= item.order_control %></td>
-            <td class="center-icon">
-                <% if (item.is_received) { %>
-                    <span style="color: green;">✅</span>
-                <% } else { %>
-                    <span style="color: red;">❌</span>
-                <% } %>
-            </td>
-            
-            <td class="center-icon">
-                <% if (item.is_ok) { %>
-                    <span style="color: green;">✅</span>
-                <% } else { %>
-                    <span style="color: red;">❌</span>
-                <% } %>
-            </td>
-            <!-- <td>
-              <button
-                onclick="editButtonHandler(event, '<%=item.his_code%>', '<%= item.lis_code%>' )"
-              >
-                Details
-              </button>
-            </td> -->
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
+          <td class="center-icon">
+            <% if (item.is_ok) { %>
+            <span style="color: green">✅</span>
+            <% } else { %>
+            <button
+              onclick="isOkErrButtonHandler(event, '<%=item.ono%>')"
+              style="color: red; padding: 0; border: none; background: none"
+            >
+              ❌
+            </button>
+            <% } %>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
 
-      <!-- Pagination Controls -->
-      <div class="pagination">
-        <% if (currentPage > 1) { %>
-        <a href="?page=<%= currentPage - 1 %>">Previous</a>
-        <% } %>
+    <!-- Pagination Controls -->
+    <div class="pagination">
+      <% if (currentPage > 1) { %>
+      <a href="?page=<%= currentPage - 1 %>">Previous</a>
+      <% } %>
 
-        <span>Page <%= currentPage %> of <%= totalPages %></span>
+      <span>Page <%= currentPage %> of <%= totalPages %></span>
 
-        <% if (currentPage < totalPages) { %>
-        <a href="?page=<%= currentPage + 1 %>">Next</a>
-        <% } %>
-      </div>
+      <% if (currentPage < totalPages) { %>
+      <a href="?page=<%= currentPage + 1 %>">Next</a>
+      <% } %>
     </div>
   </body>
 </html>

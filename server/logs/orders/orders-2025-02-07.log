@@ -20,3 +20,29 @@
 {"level":30,"time":"[2025-02-07 10:52:59]","msg":"Order request with ono ono_baru_992 has been inserted into uploader database"}
 {"level":30,"time":"[2025-02-07 10:55:42]","msg":"HL7 file has been created: O01_ono_baru_923.txt"}
 {"level":30,"time":"[2025-02-07 10:55:42]","msg":"Order request with ono ono_baru_923 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-07 13:02:19]","msg":"HL7 file has been created: O01_ono331.txt"}
+{"level":30,"time":"[2025-02-07 13:02:19]","msg":"Order request with ono ono331 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-07 13:02:44]","msg":"HL7 file has been created: O01_ono331.txt"}
+{"level":50,"time":"[2025-02-07 13:02:44]","msg":"Error inserting order with ono: ono331"}
+{"level":30,"time":"[2025-02-07 13:02:44]","msg":"Kunci « (ono)=(ono331) » sudah ada."}
+{"level":30,"time":"[2025-02-07 13:04:52]","msg":"HL7 file has been created: O01_ono332.txt"}
+{"level":30,"time":"[2025-02-07 13:04:52]","msg":"Order request with ono ono332 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-07 16:19:13]","msg":"HL7 file has been created: O01_ono998123.txt"}
+{"level":30,"time":"[2025-02-07 16:19:13]","msg":"Order request with ono ono998123 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-07 16:20:24]","msg":"HL7 file has been created: O01_ono998124777.txt"}
+{"level":30,"time":"[2025-02-07 16:20:24]","msg":"Order request with ono ono998124777 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-07 16:21:23]","msg":"order with ono: ono998123 has been edited"}
+{"level":30,"time":"[2025-02-07 16:24:41]","msg":"order with ono: ono998123 has been edited"}
+{"level":30,"time":"[2025-02-07 16:25:25]","msg":"order with ono: ono998123 has been edited"}
+{"level":30,"time":"[2025-02-07 16:29:07]","msg":"HL7 file has been created: O01_ono9981test777.txt"}
+{"level":30,"time":"[2025-02-07 16:29:07]","msg":"Order request with ono ono9981test777 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-07 16:31:45]","msg":"HL7 file has been created: O01_ono9981tesfag777.txt"}
+{"level":30,"time":"[2025-02-07 16:31:45]","msg":"Order request with ono ono9981tesfag777 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-07 16:33:51]","msg":"HL7 file has been created: O01_ono9981tesfag777.txt"}
+{"level":50,"time":"[2025-02-07 16:33:51]","msg":"Error inserting order with ono: ono9981tesfag777"}
+{"level":30,"time":"[2025-02-07 16:33:51]","msg":"Kunci « (ono)=(ono9981tesfag777) » sudah ada."}
+{"level":30,"time":"[2025-02-07 16:35:43]","msg":"order with ono: ono9981tesfag777 has been edited"}
+{"level":30,"time":"[2025-02-07 16:36:57]","msg":"order with ono: ono9981tesfag777 has been edited"}
+{"level":30,"time":"[2025-02-07 16:42:48]","msg":"order with ono: ono9981tesfag777 has been edited"}
+{"level":30,"time":"[2025-02-07 16:45:05]","msg":"order with ono: ono9981tesfag777 has been edited"}
+{"level":30,"time":"[2025-02-07 16:45:42]","msg":"order with ono: ono9981tesfag777 has been deleted"}
