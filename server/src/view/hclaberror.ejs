@@ -8,6 +8,28 @@
     <script src="/scripts/hclaberror.js"></script>
   </head>
   <body>
+    <%- include('partials/navbar') %>
     <h1>Error Handler</h1>
+
+    <div
+      style="
+        margin: auto;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        max-width: 50%;
+        padding-top: 2px;
+        padding-bottom: 2px;
+      "
+    >
+      <h2>ONO Searched: <%= ono %></h2>
+    </div>
+
+    <% data.forEach(error => { %>
+    <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc">
+      <p><strong>Error message:</strong> <%= error.error_msg %></p>
+      <pre style="text-align: left"><%= error.error_file %></pre>
+    </div>
+    <% }) %>
   </body>
 </html>

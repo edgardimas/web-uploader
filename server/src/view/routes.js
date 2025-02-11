@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const { getTMData } = require("../testmappings/controller");
 const { getOrders } = require("../orders/controller");
+const getErrData = require("../hclaberror/controller");
 const { login } = require("../users/controller");
 const authentication = require("../middleware/authentication");
 const router = express.Router();
@@ -223,8 +224,6 @@ router.get("/tmeditform", (req, res) => {
 
 router.post("/login", login);
 
-router.get("/hclaberror/:ono", (req, res) => {
-  res.render("hclaberror");
-});
+router.get("/hclaberror/:ono", getErrData);
 
 module.exports = router;
