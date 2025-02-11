@@ -31,16 +31,14 @@ async function checkForR01Files() {
           const data = await fs.readFile(filePath, { encoding: "utf8" });
 
           // Decode and correct the data
-          const decodedData = iconv.decode(
-            Buffer.from(data, "utf8"),
-            "ISO-8859-1"
-          );
+          const decodedData = iconv.decode(data, "ISO-8859-1");
           const correctedData = decodedData.replace(/ýL/g, "µL");
 
           // Parse and extract necessary data
           const parsed = parser(correctedData);
           const obx = obxExtractor(parsed);
           const mappedObx = await obxMapper(obx);
+          console.log(mappedObx, "<<<<< mappedObx");
           // Update the records
           await resHdrUp(parsed, file);
           await resDtUp(mappedObx, parsed.ono, file);
