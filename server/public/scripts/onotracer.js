@@ -77,7 +77,10 @@ function displaySearchResults(data) {
             ${
               item.is_ok
                 ? '<span style="color: green;">✅</span>'
-                : '<span style="color: red;">❌</span>'
+                : `<button onclick="isOkErrButtonHandler(event, '${item.ono}')" 
+                        style="color: red; padding: 0; border: none; background: none">
+                  ❌
+                </button>`
             }
         </td>
       </tr>
@@ -95,6 +98,7 @@ function displaySearchResults(data) {
 
 function isOkErrButtonHandler(event, ono) {
   event.preventDefault();
+  console.log("isokebutton");
   window.location.href = `/view/hclaberror/${ono}`; // Redirect to the error handler page
 }
 

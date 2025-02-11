@@ -25,10 +25,16 @@
       <h2>ONO Searched: <%= ono %></h2>
     </div>
 
+    <input type="hidden" id="ono" value="<%= ono %>" />
+
     <% data.forEach(error => { %>
+    <input type="hidden" id="ono" value="<%= ono %>" />
     <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc">
       <p><strong>Error message:</strong> <%= error.error_msg %></p>
-      <pre style="text-align: left"><%= error.error_file %></pre>
+      <pre id="editableText" style="text-align: left" contenteditable="true">
+<%= error.error_file %></pre
+      >
+      <button onclick="saveChanges()">Save</button>
     </div>
     <% }) %>
   </body>

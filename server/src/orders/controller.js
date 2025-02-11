@@ -457,6 +457,18 @@ const logOrders = (req, res, next) => {
   });
 };
 
+function errorEdit(req, res, next) {
+  try {
+    const { text, ono } = req.body; // Extract text and ono from the request
+    const filePath = path.join("C:/hcini/queue/HL7_in", `${ono}.txt`); // Define file path
+
+    fs.writeFileSync(filePath, text, "utf8"); // Write text to the file
+
+    res.json({ success: true, message: "File saved successfully!" });
+  } catch (err) {
+    next(err);
+  }
+}
 module.exports = {
   getOrders,
   getOrderByOno,
@@ -464,4 +476,5 @@ module.exports = {
   removeOrder,
   updateOrder,
   logOrders,
+  errorEdit,
 };
