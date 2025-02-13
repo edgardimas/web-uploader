@@ -12,55 +12,75 @@ let currentState = 0;
 
 async function checkForR01Files() {
   try {
-    // Read the folder contents asynchronously
     const files = await fs.readdir(folderPath);
 
-    // Filter the files to get only .r01 files
+    // Filter to get only .r01 files
     const r01Files = files.filter(
       (file) => path.extname(file).toLowerCase() === ".r01"
     );
 
     if (r01Files.length > 0) {
-      resultLogger.info(`Found .r01 file(s): ${r01Files}`);
+      // Get file stats and sort by creation date (oldest first)
+      const fileStats = await Promise.all(
+        r01Files.map(async (file) => {
+          const filePath = path.join(folderPath, file);
+          const stats = await fs.stat(filePath);
+          return { file, filePath, birthtime: stats.birthtime };
+        })
+      );
 
-      // Process each file
-      for (const file of r01Files) {
-        const filePath = path.join(folderPath, file);
-        try {
-          // Read the file content
-          const data = await fs.readFile(filePath, { encoding: "utf8" });
+      // Sort files by creation date
+      fileStats.sort((a, b) => a.birthtime - b.birthtime);
+      console.log(fileStats);
 
-          // Decode and correct the data
-          const decodedData = iconv.decode(data, "ISO-8859-1");
-          const correctedData = decodedData.replace(/ýL/g, "µL");
+      const oldestFile = fileStats[0]; // Pick the oldest file
 
-          // Parse and extract necessary data
-          const parsed = parser(correctedData);
-          const obx = obxExtractor(parsed);
-          const mappedObx = await obxMapper(obx);
-          console.log(mappedObx, "<<<<< mappedObx");
-          // Update the records
-          await resHdrUp(parsed, file);
-          await resDtUp(mappedObx, parsed.ono, file);
+      try {
+        console.log(
+          `Oldest file detected: ${oldestFile.file}. Waiting 2 seconds before processing...`
+        );
 
-          // Move the file to the new destination
-          const destinationPath = path.join(
-            "C:/hcini",
-            "queue",
-            "HL7_out",
-            "temp",
-            file
-          );
-          await fs.rename(filePath, destinationPath);
+        // Wait for 2 seconds before processing
+        await new Promise((resolve) => setTimeout(resolve, 2000));
 
-          console.log(`File ${file} moved successfully!`);
-          currentState = 0;
-        } catch (fileErr) {
-          console.error(`Error processing file ${file}:`, fileErr.message);
-        }
+        // Read the file content
+        const data = await fs.readFile(oldestFile.filePath, {
+          encoding: "utf8",
+        });
+
+        // Decode and process the data
+        const decodedData = iconv.decode(data, "ISO-8859-1");
+        const correctedData = decodedData.replace(/ýL/g, "µL");
+
+        const parsed = parser(correctedData);
+        const obx = obxExtractor(parsed);
+        const mappedObx = await obxMapper(obx);
+
+        await resHdrUp(parsed, oldestFile.file);
+        await resDtUp(mappedObx, parsed.ono, oldestFile.file);
+
+        // Move the file after processing
+        const destinationPath = path.join(
+          "C:/hcini",
+          "queue",
+          "HL7_out",
+          "temp",
+          oldestFile.file
+        );
+        await fs.rename(oldestFile.filePath, destinationPath);
+
+        console.log(
+          `File ${oldestFile.file} processed and moved successfully!`
+        );
+        currentState = 0;
+      } catch (fileErr) {
+        console.error(
+          `Error processing file ${oldestFile.file}:`,
+          fileErr.message
+        );
       }
     } else {
-      if (currentState == 0) {
+      if (currentState === 0) {
         resultLogger.info("No R01 Found");
         currentState = 1;
       }

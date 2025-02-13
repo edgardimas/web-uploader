@@ -28,8 +28,8 @@ app.use("/view", viewRoutes);
 app.use("/testmappings", testMappingRoutes);
 app.use(errorHandler);
 
-setInterval(checkForR01Files, 2000);
-setInterval(textChecker, 2000);
-setInterval(errChecker, 2000);
+setInterval(checkForR01Files, 4000);
+setInterval(textChecker, 4000);
+setInterval(errChecker, 4000);
 
 app.listen(port, () => console.log(`app listening on port ${port}`));
