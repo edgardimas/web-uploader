@@ -3,3 +3,5 @@
 {"level":30,"time":"[2025-02-14 03:07:41]","msg":"Kunci « (ono)=(non1355) » sudah ada."}
 {"level":30,"time":"[2025-02-14 03:07:52]","msg":"HL7 file has been created: O01_non1884.txt"}
 {"level":30,"time":"[2025-02-14 03:07:52]","msg":"Order request with ono non1884 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-14 07:23:06]","msg":"HL7 file has been created: O01_non188499.txt"}
+{"level":30,"time":"[2025-02-14 07:23:07]","msg":"Order request with ono non188499 has been inserted into uploader database"}
