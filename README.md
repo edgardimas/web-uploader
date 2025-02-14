@@ -238,31 +238,42 @@ Order removed successfully.
 link: http://localhost:3000/view
 purpose: to see if the uploader is running or not.
 
-![image.png](attachment:fc38e395-f28d-40b7-8cd2-e8329e5487f0:image.png)
+![image](https://github.com/user-attachments/assets/898555d8-c377-4b15-aea8-e1e53bf4c3cf)
 
-1. Logs
+
+2. Logs
 link: 
 a.  http://localhost:3000/view/orderlogs
 b.  http://localhost:3000/view/resultlogs
 c. http://localhost:3000/view/errorlogs
 purpose: to see logs of orders and results. 
 
-![image.png](attachment:69995048-143b-4b85-8714-91421f4ccd43:image.png)
+![image](https://github.com/user-attachments/assets/0e758fbc-e501-448c-9cff-ff8635ae14df)
 
-1. ONO Tracer
+
+3. ONO Tracer
 link: http://localhost:3000/view/onotracer
 purpose: to see the whether the order is ok or not.
 
-![image.png](attachment:06d2eb82-6dec-4f1c-8e1e-a75f5bf3dada:image.png)
+![image](https://github.com/user-attachments/assets/41153cbb-83d3-4ebe-9601-3adff1dcd31a)
 
-1. Login Page
+4. Login Page
 link: http://localhost:3000/view/login
 purpose: to login.
 
-![image.png](attachment:bb3bb7c6-1851-40bc-9312-4c6fbe821cb1:image.png)
+![image](https://github.com/user-attachments/assets/6e280c6c-00a5-41aa-ae52-edd0256f23a7)
 
-1. Test Mappings:
+
+5. Test Mappings:
 link: http://localhost:3000/view/testmappings
 purpose: to see, add, and edit test mappings.
 
-![image.png](attachment:0774b0be-4df6-4673-a1db-ef4ab945e419:image.png)
+![image](https://github.com/user-attachments/assets/c975f40a-0b33-438d-9f64-eba46360c0bf)
+
+
+6. Error Handler
+link: http://localhost:3000/view/hclaberror/:ono
+purpose: fast error handling. (access by clicking X button at Ono Tracer.
+![image](https://github.com/user-attachments/assets/bd41c982-a7c6-4ead-b172-02680a4e419a)
+
+
