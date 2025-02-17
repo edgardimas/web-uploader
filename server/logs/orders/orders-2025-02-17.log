@@ -1,0 +1,14 @@
+{"level":30,"time":"[2025-02-17 11:13:16]","msg":"HL7 file has been created: O01_non66.txt"}
+{"level":30,"time":"[2025-02-17 11:13:16]","msg":"Order request with ono non66 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-17 11:13:26]","msg":"HL7 file has been created: O01_non866.txt"}
+{"level":30,"time":"[2025-02-17 11:13:26]","msg":"Order request with ono non866 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-17 11:57:52]","msg":"HL7 file has been created: O01_ono771.txt"}
+{"level":30,"time":"[2025-02-17 11:57:52]","msg":"Order request with ono ono771 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-17 11:57:57]","msg":"HL7 file has been created: O01_ono772.txt"}
+{"level":30,"time":"[2025-02-17 11:57:57]","msg":"Order request with ono ono772 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-17 11:57:59]","msg":"HL7 file has been created: O01_ono772.txt"}
+{"level":50,"time":"[2025-02-17 11:57:59]","msg":"Error inserting order with ono: ono772"}
+{"level":30,"time":"[2025-02-17 11:57:59]","msg":"Kunci « (ono)=(ono772) » sudah ada."}
+{"level":30,"time":"[2025-02-17 11:58:00]","msg":"HL7 file has been created: O01_ono772.txt"}
+{"level":50,"time":"[2025-02-17 11:58:00]","msg":"Error inserting order with ono: ono772"}
+{"level":30,"time":"[2025-02-17 11:58:00]","msg":"Kunci « (ono)=(ono772) » sudah ada."}

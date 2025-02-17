@@ -1,7 +1,8 @@
 const pool = require("../../../database");
 const queries = require("../queries/queries");
 
-function resDtUp(obx, ono, file) {
+async function resDtUp(obx, ono, file, client) {
+  console.log(ono, "<<< ono dt up");
   for (const [key, value] of Object.entries(obx)) {
     const values = value.split("|");
     const details = {
@@ -20,89 +21,64 @@ function resDtUp(obx, ono, file) {
       method: values[13],
     };
 
-    pool.query(
-      "SELECT COUNT(*) FROM result_details WHERE ono = $1 AND test_cd = $2",
-      [ono, details.test_cd],
-      (error, results) => {
-        if (error) {
-          console.error(
-            `Database error checking test_cd ${details.test_cd} for ONO ${ono} in file ${file}:`,
-            error.message
-          );
-          return;
-        }
+    try {
+      const checkResult = await client.query(
+        "SELECT COUNT(*) FROM result_details WHERE ono = $1 AND test_cd = $2",
+        [ono, details.test_cd]
+      );
 
-        const exists = parseInt(results.rows[0].count) > 0;
+      const exists = parseInt(checkResult.rows[0].count) > 0;
 
-        if (exists) {
-          // Update existing record
-          pool.query(
-            queries.updateResultDetail, // Define this query in your queries file
-            [
-              details.test_nm,
-              details.data_type,
-              details.result_value,
-              details.unit,
-              details.flag,
-              details.ref_range,
-              details.status,
-              details.test_comment,
-              details.authorized_by,
-              details.authorized_date,
-              details.department,
-              details.method,
-              ono,
-              details.test_cd, // WHERE condition
-            ],
-            (updateError) => {
-              if (updateError) {
-                console.error(
-                  `Database update error for ONO ${ono}, test_cd ${details.test_cd} in file ${file}:`,
-                  updateError.message
-                );
-              } else {
-                console.log(
-                  `Database update successful for ONO ${ono}, test_cd ${details.test_cd} in file ${file}`
-                );
-              }
-            }
-          );
-        } else {
-          // Insert new record
-          pool.query(
-            queries.addResultDetail,
-            [
-              details.test_cd,
-              details.test_nm,
-              details.data_type,
-              details.result_value,
-              details.unit,
-              details.flag,
-              details.ref_range,
-              details.status,
-              details.test_comment,
-              details.authorized_by,
-              details.authorized_date,
-              details.department,
-              details.method,
-              ono,
-            ],
-            (insertError) => {
-              if (insertError) {
-                console.error(
-                  `Database insert error for file ${file}:`,
-                  insertError.message
-                );
-              } else {
-                console.log(
-                  `Database insert successful for ONO ${ono}, test_cd ${details.test_cd} in file ${file}`
-                );
-              }
-            }
-          );
-        }
+      if (exists) {
+        // Update existing record
+        await client.query(queries.updateResultDetail, [
+          details.test_nm,
+          details.data_type,
+          details.result_value,
+          details.unit,
+          details.flag,
+          details.ref_range,
+          details.status,
+          details.test_comment,
+          details.authorized_by,
+          details.authorized_date,
+          details.department,
+          details.method,
+          ono,
+          details.test_cd, // WHERE condition
+        ]);
+        console.log(
+          `Database update successful for ONO ${ono}, test_cd ${details.test_cd} in file ${file}`
+        );
+      } else {
+        // Insert new record
+        await client.query(queries.addResultDetail, [
+          details.test_cd,
+          details.test_nm,
+          details.data_type,
+          details.result_value,
+          details.unit,
+          details.flag,
+          details.ref_range,
+          details.status,
+          details.test_comment,
+          details.authorized_by,
+          details.authorized_date,
+          details.department,
+          details.method,
+          ono,
+        ]);
+        console.log(
+          `Database insert successful for ONO ${ono}, test_cd ${details.test_cd} in file ${file}`
+        );
       }
-    );
+    } catch (error) {
+      console.error(
+        `Database error for file ${file} with ONO ${ono}:`,
+        error.message
+      );
+      throw error; // Propagate the error so the transaction can be rolled back
+    }
   }
 }
 

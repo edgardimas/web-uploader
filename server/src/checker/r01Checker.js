@@ -8,12 +8,12 @@ const resDtUp = require("./functions/resDtUp");
 const { orderLogger, resultLogger } = require("../helpers/logger");
 const obxMapper = require("./functions/obxMapper");
 const folderPath = path.join("C:/hcini", "queue", "HL7_out");
+const pool = require("../../database");
 let currentState = 0;
 
 async function checkForR01Files() {
   try {
     const files = await fs.readdir(folderPath);
-
     // Filter to get only .r01 files
     const r01Files = files.filter(
       (file) => path.extname(file).toLowerCase() === ".r01"
@@ -34,15 +34,16 @@ async function checkForR01Files() {
       console.log(fileStats);
 
       const oldestFile = fileStats[0]; // Pick the oldest file
-
+      const client = await pool.connect();
       try {
-        console.log(
-          `Oldest file detected: ${oldestFile.file}. Waiting 2 seconds before processing...`
-        );
-
         // Wait for 2 seconds before processing
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-
+        const now = new Date();
+        const age = now - oldestFile.birthtime;
+        if (age < 2000) {
+          console.log("wait", age);
+          await new Promise((resolve) => setTimeout(resolve, 2000 - age));
+        }
+        console.log("continue", age);
         // Read the file content
         const data = await fs.readFile(oldestFile.filePath, {
           encoding: "utf8",
@@ -51,14 +52,14 @@ async function checkForR01Files() {
         // Decode and process the data
         const decodedData = iconv.decode(data, "ISO-8859-1");
         const correctedData = decodedData.replace(/ýL/g, "µL");
-
         const parsed = parser(correctedData);
         const obx = obxExtractor(parsed);
         const mappedObx = await obxMapper(obx);
 
-        await resHdrUp(parsed, oldestFile.file);
-        await resDtUp(mappedObx, parsed.ono, oldestFile.file);
-
+        await client.query("BEGIN");
+        await resHdrUp(parsed, oldestFile.file, client);
+        await resDtUp(mappedObx, parsed.ono, oldestFile.file, client);
+        await client.query("COMMIT");
         // Move the file after processing
         const destinationPath = path.join(
           "C:/hcini",
@@ -74,6 +75,8 @@ async function checkForR01Files() {
         );
         currentState = 0;
       } catch (fileErr) {
+        await client.query("ROLLBACK");
+
         console.error(
           `Error processing file ${oldestFile.file}:`,
           fileErr.message

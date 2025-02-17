@@ -5,3 +5,5 @@
 {"level":30,"time":"[2025-02-14 03:07:52]","msg":"Order request with ono non1884 has been inserted into uploader database"}
 {"level":30,"time":"[2025-02-14 07:23:06]","msg":"HL7 file has been created: O01_non188499.txt"}
 {"level":30,"time":"[2025-02-14 07:23:07]","msg":"Order request with ono non188499 has been inserted into uploader database"}
+{"level":30,"time":"[2025-02-14 09:35:55]","msg":"HL7 file has been created: O01_non772.txt"}
+{"level":30,"time":"[2025-02-14 09:35:55]","msg":"Order request with ono non772 has been inserted into uploader database"}
